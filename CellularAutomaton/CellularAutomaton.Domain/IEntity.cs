@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CellularAutomaton.Repositories
+namespace CellularAutomaton.Domain
 {
-    public class Class1
+    public interface IEntity
     {
+        string Id { get; set; }
     }
 }

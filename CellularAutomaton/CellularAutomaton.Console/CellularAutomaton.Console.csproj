@@ -32,7 +32,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.0.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,7 +58,32 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CellularAutomaton.Context\CellularAutomaton.Context.csproj">
+      <Project>{525301de-7f0a-43d8-9558-3cdbf9600463}</Project>
+      <Name>CellularAutomaton.Context</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CellularAutomaton.Domain\CellularAutomaton.Domain.csproj">
+      <Project>{eb676aa1-4ff8-4565-b2ab-7f59a9380fc6}</Project>
+      <Name>CellularAutomaton.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CellularAutomaton.Repositories.Interfaces\CellularAutomaton.Repositories.Interfaces.csproj">
+      <Project>{64d2d3ff-de71-47f7-8bc6-7144f5929a68}</Project>
+      <Name>CellularAutomaton.Repositories.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CellularAutomaton.Repositories\CellularAutomaton.Repositories.csproj">
+      <Project>{bc3158d1-56b0-47db-a1a6-26d8ae23e14c}</Project>
+      <Name>CellularAutomaton.Repositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CellularAutomaton.UnitOfWork\CellularAutomaton.UnitOfWork.csproj">
+      <Project>{3e68e1b6-7de0-4874-9d52-f5373fbbe31a}</Project>
+      <Name>CellularAutomaton.UnitOfWork</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

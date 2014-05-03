@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{64D2D3FF-DE71-47F7-8BC6-7144F5929A68}</ProjectGuid>
+    <ProjectGuid>{3E68E1B6-7DE0-4874-9D52-F5373FBBE31A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CellularAutomaton.Repositories.Interfaces</RootNamespace>
-    <AssemblyName>CellularAutomaton.Repositories.Interfaces</AssemblyName>
+    <RootNamespace>CellularAutomaton.UnitOfWork</RootNamespace>
+    <AssemblyName>CellularAutomaton.UnitOfWork</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -52,18 +52,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IRepository.cs" />
+    <Compile Include="UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\CellularAutomaton.Context\CellularAutomaton.Context.csproj">
+      <Project>{525301de-7f0a-43d8-9558-3cdbf9600463}</Project>
+      <Name>CellularAutomaton.Context</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CellularAutomaton.Domain\CellularAutomaton.Domain.csproj">
       <Project>{eb676aa1-4ff8-4565-b2ab-7f59a9380fc6}</Project>
       <Name>CellularAutomaton.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CellularAutomaton.Repositories.Interfaces\CellularAutomaton.Repositories.Interfaces.csproj">
+      <Project>{64d2d3ff-de71-47f7-8bc6-7144f5929a68}</Project>
+      <Name>CellularAutomaton.Repositories.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CellularAutomaton.Repositories\CellularAutomaton.Repositories.csproj">
+      <Project>{bc3158d1-56b0-47db-a1a6-26d8ae23e14c}</Project>
+      <Name>CellularAutomaton.Repositories</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
