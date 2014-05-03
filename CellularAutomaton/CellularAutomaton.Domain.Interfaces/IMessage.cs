@@ -16,9 +16,9 @@ namespace CellularAutomaton.Domain.Interfaces
 
         bool IsRead { get; set; }
 
-        IUser Recipient { get; set; }
+        ICellularAutomatonUser Recipient { get; set; }
 
-        IUser Sender { get; set; }
+        ICellularAutomatonUser Sender { get; set; }
 
     }
 }

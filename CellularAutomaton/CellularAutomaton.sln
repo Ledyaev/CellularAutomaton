@@ -1,7 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30324.0
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CellularAutomaton.Web", "CellularAutomaton.Web\CellularAutomaton.Web.csproj", "{A72D87CE-D760-4CF5-A487-7C265AE52502}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CellularAutomaton.Web.Tests", "CellularAutomaton.Web.Tests\CellularAutomaton.Web.Tests.csproj", "{519A6EE0-C497-44F3-B1F3-B50ECE724705}"
@@ -10,7 +11,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CellularAutomaton.Console",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CellularAutomaton.Domain.Interfaces", "CellularAutomaton.Domain.Interfaces\CellularAutomaton.Domain.Interfaces.csproj", "{F62F4D41-36E3-4362-B57C-262D6EEC5A53}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CellularAutomaton.Domain", "CellularAutomaton.Domain\CellularAutomaton.Domain.csproj", "{EB676AA1-4FF8-4565-B2AB-7F59A9380FC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CellularAutomaton.Context.Interfaces", "CellularAutomaton.Context.Interfaces\CellularAutomaton.Context.Interfaces.csproj", "{8E81A910-07B0-4233-BBCC-710F97F19958}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CellularAutomaton.Context", "CellularAutomaton.Context\CellularAutomaton.Context.csproj", "{525301DE-7F0A-43D8-9558-3CDBF9600463}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CellularAutomaton.Repositories", "CellularAutomaton.Repositories\CellularAutomaton.Repositories.csproj", "{BC3158D1-56B0-47DB-A1A6-26D8AE23E14C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CellularAutomaton.Repositories.Interfaces", "CellularAutomaton.Repositories.Interfaces\CellularAutomaton.Repositories.Interfaces.csproj", "{64D2D3FF-DE71-47F7-8BC6-7144F5929A68}"
+EndProject
 Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -32,6 +47,26 @@ Global
 		{F62F4D41-36E3-4362-B57C-262D6EEC5A53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F62F4D41-36E3-4362-B57C-262D6EEC5A53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F62F4D41-36E3-4362-B57C-262D6EEC5A53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB676AA1-4FF8-4565-B2AB-7F59A9380FC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB676AA1-4FF8-4565-B2AB-7F59A9380FC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB676AA1-4FF8-4565-B2AB-7F59A9380FC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB676AA1-4FF8-4565-B2AB-7F59A9380FC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E81A910-07B0-4233-BBCC-710F97F19958}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E81A910-07B0-4233-BBCC-710F97F19958}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E81A910-07B0-4233-BBCC-710F97F19958}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E81A910-07B0-4233-BBCC-710F97F19958}.Release|Any CPU.Build.0 = Release|Any CPU
+		{525301DE-7F0A-43D8-9558-3CDBF9600463}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{525301DE-7F0A-43D8-9558-3CDBF9600463}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{525301DE-7F0A-43D8-9558-3CDBF9600463}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{525301DE-7F0A-43D8-9558-3CDBF9600463}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC3158D1-56B0-47DB-A1A6-26D8AE23E14C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC3158D1-56B0-47DB-A1A6-26D8AE23E14C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC3158D1-56B0-47DB-A1A6-26D8AE23E14C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC3158D1-56B0-47DB-A1A6-26D8AE23E14C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64D2D3FF-DE71-47F7-8BC6-7144F5929A68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64D2D3FF-DE71-47F7-8BC6-7144F5929A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64D2D3FF-DE71-47F7-8BC6-7144F5929A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64D2D3FF-DE71-47F7-8BC6-7144F5929A68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

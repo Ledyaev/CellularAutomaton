@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CellularAutomaton.Domain.Interfaces
 {
-    public interface ICellularAutomatonUser : IUser, IEntity
+    public interface ICellularAutomatonUser : IEntity
     {
         string NickName { get; set; }
 
@@ -31,12 +31,12 @@ namespace CellularAutomaton.Domain.Interfaces
         #region Navigation Properties
 
         [InverseProperty("Recipient")]
-        List<Message> IncomingMessages { get; set; }
+        List<IMessage> IncomingMessages { get; set; }
 
         [InverseProperty("Sender")]
-        List<Message> OutgoingMessages { get; set; }
+        List<IMessage> OutgoingMessages { get; set; }
 
-        List<Mark> Marks { get; set; }
+       // List<IMark> Marks { get; set; }
 
         #endregion
     }
