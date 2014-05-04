@@ -7,43 +7,25 @@ using CellularAutomaton.Context;
 using CellularAutomaton.Domain;
 using CellularAutomaton.Repositories;
 using CellularAutomaton.Repositories.Interfaces;
+using CellularAutomaton.UnitOfWork.Interfaces;
 
 namespace CellularAutomaton.UnitOfWork
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
+
+        public UnitOfWork(IRepository<User> usersRepository, IRepository<Message> messagesRepository)
+        {
+            this.UsersRepository = usersRepository;
+            this.MessagesRepository = messagesRepository;
+        }
+
         private CellularAutomatonContext context = new CellularAutomatonContext();
 
-        private IRepository<User> usersRepository;
-
-        private IRepository<Message> messagesRepository;
-
-        public IRepository<User> UsersRepository
-        {
-            get
-            {
-
-                if (this.usersRepository == null)
-                {
-                    this.usersRepository = new GenericRepository<User>(context);
-                }
-                return usersRepository;
-            }
-        }
+        public IRepository<User> UsersRepository { get; private set; }
 
 
-        public GenericRepository<Message> MessagesRepository
-        {
-            get
-            {
-
-                if (this.messagesRepository == null)
-                {
-                    this.messagesRepository = new GenericRepository<Message>(context);
-                }
-                return messagesRepository;
-            }
-        }
+        public IRepository<Message> MessagesRepository { get; private set; }
 
         public void Save()
         {

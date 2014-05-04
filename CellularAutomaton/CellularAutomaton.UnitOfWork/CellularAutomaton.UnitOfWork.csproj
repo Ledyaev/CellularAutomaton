@@ -72,6 +72,10 @@
       <Project>{bc3158d1-56b0-47db-a1a6-26d8ae23e14c}</Project>
       <Name>CellularAutomaton.Repositories</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CellularAutomaton.UnitOfWork.Interfaces\CellularAutomaton.UnitOfWork.Interfaces.csproj">
+      <Project>{fadbd531-6436-44ad-b72e-dbdbbcaf6579}</Project>
+      <Name>CellularAutomaton.UnitOfWork.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

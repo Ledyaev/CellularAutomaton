@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using CellularAutomaton.Context;
@@ -10,22 +11,22 @@ using CellularAutomaton.Repositories.Interfaces;
 
 namespace CellularAutomaton.Repositories
 {
-    public class GenericRepository<TEntity>: IRepository<TEntity> where TEntity: class
+    public class GenericRepository<TEntity>: IRepository<TEntity> where TEntity: IEntity
     {
         internal DbContext context;
-        //internal DbSet dbSet;
+        internal DbSet dbSet;
 
         public GenericRepository(CellularAutomatonContext context)
         {
             this.context = context;
-            //this.dbSet = context.Set(typeof(TEntity));
+            this.dbSet = context.Set(typeof(TEntity));
         }
 
 
 
-        public IEnumerable<TEntity> Get(System.Linq.Expressions.Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy, string includeProperties)
+        IEnumerable<TEntity> IRepository<TEntity>.Get(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy, string includeProperties)
         {
-            var query = (IQueryable<TEntity>)context.Set<TEntity>();
+            var query = (IQueryable<TEntity>)dbSet;
 
             if (filter != null)
             {
@@ -48,35 +49,35 @@ namespace CellularAutomaton.Repositories
             }
         }
 
-        public TEntity GetById(string id)
+        TEntity IRepository<TEntity>.GetById(string id)
         {
-            return (TEntity)context.Set<TEntity>().Find(id);
+            return (TEntity)dbSet.Find(id);
         }
 
-        public void Insert(TEntity entity)
+        void IRepository<TEntity>.Insert(TEntity entity)
         {
-            context.Set<TEntity>().Add(entity);
+            dbSet.Add(entity);
         }
 
-        public void Delete(object id)
+        void IRepository<TEntity>.Delete(object id)
         {
-            var entityToDelete = (TEntity)context.Set<TEntity>().Find(id);
-            Delete(entityToDelete);
+            var entityToDelete = (TEntity)dbSet.Find(id);
+            ((IRepository<TEntity>)this).Delete(entityToDelete);
         }
 
-        public void Delete(TEntity entityToDelete)
+        void IRepository<TEntity>.Delete(TEntity entityToDelete)
         {
-            if (context.Entry(entityToDelete).State == EntityState.Detached)
+            if (context.Entry((object)entityToDelete).State == EntityState.Detached)
             {
-                context.Set<TEntity>().Attach(entityToDelete);
+                dbSet.Attach(entityToDelete);
             }
-            context.Set<TEntity>().Remove(entityToDelete);
+            dbSet.Remove(entityToDelete);
         }
 
-        public void Update(TEntity entityToUpdate)
+        void IRepository<TEntity>.Update(TEntity entityToUpdate)
         {
-            context.Set<TEntity>().Attach(entityToUpdate);
-            context.Entry(entityToUpdate).State = EntityState.Modified;
+            dbSet.Attach(entityToUpdate);
+            context.Entry((object)entityToUpdate).State = EntityState.Modified;
         }
     }
 }

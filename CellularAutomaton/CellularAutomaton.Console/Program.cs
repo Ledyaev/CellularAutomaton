@@ -20,9 +20,9 @@ namespace CellularAutomaton.Console
             var user = new User()
             {
                 Id = Guid.NewGuid().ToString(),
-                NickName = "Adminsdfg",
+                NickName = "jfkhkfgki",
                 BirthDay = DateTime.Now,
-                UserName = "Ssdfasdfsdfgsdf"
+                UserName = "Ssdfasdfsd"
             };
             unitOfWork.UsersRepository.Insert(user);
             unitOfWork.Save();

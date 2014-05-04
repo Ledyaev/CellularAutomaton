@@ -1,9 +1,9 @@
 ﻿class Life {
 
-    table: Array<Array<Cell>>
-    city: Array<Array<boolean>>
-    newCity: Array<Array<boolean>>
-    areaSize: number
+    table: Array<Array<Cell>>;
+    city: Array<Array<boolean>>;
+    newCity: Array<Array<boolean>>;
+    areaSize: number;
     Initialize(n:number)
     {
         this.areaSize = n;
@@ -11,13 +11,13 @@
         var playAreaTable = document.createElement('table');
         playAreaTable.width = String(n * 10);
         playAreaTable.className = "playArea";
-        playAreaTable.onclick = (e: MouseEvent) => { this.ChangeState(e)}
+        playAreaTable.onclick = (e: MouseEvent) => { this.ChangeState(e) };
         this.table = new Array<Array<Cell>>(n);
         this.city = new Array<Array<boolean>>(n);
         this.newCity = new Array<Array<boolean>>(n);
         for (var i = 0; i < n; i++) {
             var row = <HTMLTableRowElement> playAreaTable.insertRow(-1);
-            this.table[i] = new Array<Cell>(n);
+           // this.table[i] = new Array<Cell>(n);
             this.city[i] = new Array<boolean>(n);
             this.newCity[i] = new Array<boolean>(n);
             for (var j = 0; j < n; j++) {
@@ -25,7 +25,7 @@
                 cell.className = "dead cell";
                 cell.i = i;
                 cell.j = j;
-                this.table[i][j] = cell;
+               // this.table[i][j] = cell;
                 this.city[i][j] = false;
                 this.newCity[i][j] = false;
             }
