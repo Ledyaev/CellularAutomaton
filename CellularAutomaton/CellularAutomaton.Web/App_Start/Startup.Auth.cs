@@ -32,7 +32,7 @@ namespace CellularAutomaton.Web
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication();
+            app.UseGoogleAuthentication();
         }
     }
 }

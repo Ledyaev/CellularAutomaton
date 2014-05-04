@@ -17,7 +17,7 @@
         this.newCity = new Array<Array<boolean>>(n);
         for (var i = 0; i < n; i++) {
             var row = <HTMLTableRowElement> playAreaTable.insertRow(-1);
-           // this.table[i] = new Array<Cell>(n);
+            this.table[i] = new Array<Cell>(n);
             this.city[i] = new Array<boolean>(n);
             this.newCity[i] = new Array<boolean>(n);
             for (var j = 0; j < n; j++) {
@@ -25,7 +25,7 @@
                 cell.className = "dead cell";
                 cell.i = i;
                 cell.j = j;
-               // this.table[i][j] = cell;
+                this.table[i][j] = cell;
                 this.city[i][j] = false;
                 this.newCity[i][j] = false;
             }
@@ -56,10 +56,10 @@
     CalculateNewState(): any {
         for (var i = 0; i < this.areaSize; i++)
             for (var j = 0; j < this.areaSize; j++) {
-                var alive_now = this.city[i][j];
-                var number_neighbors = this.CountOfNeighbors(i, j);
-                if (alive_now != (this.newCity[i][j] = (number_neighbors == 2) && alive_now || (number_neighbors == 3)))
-                    this.table[i][j].className = alive_now ? "dead cell" : "alive cell";
+                var aliveNow = this.city[i][j];
+                var numberNeighbors = this.CountOfNeighbors(i, j);
+                if (aliveNow != (this.newCity[i][j] = (numberNeighbors == 2) && aliveNow || (numberNeighbors == 3)))
+                    this.table[i][j].className = aliveNow ? "dead cell" : "alive cell";
             }
         for (var i = 0; i < this.areaSize; i++)
             for (var j = 0; j < this.areaSize; j++) {

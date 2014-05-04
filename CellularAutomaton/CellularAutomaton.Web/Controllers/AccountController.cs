@@ -18,12 +18,6 @@ namespace CellularAutomaton.Web.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        public AccountController()
-            : this(IUserStore<User> userStore)
-        {
-
-        }
-
         public AccountController(IUserStore<User> userStore)
         {
             UserManager = new UserManager<User>(userStore);
@@ -82,7 +76,7 @@ namespace CellularAutomaton.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.UserName };
+                var user = new User() { UserName = model.UserName , BirthDay = DateTime.Now};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -269,7 +263,7 @@ namespace CellularAutomaton.Web.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser() { UserName = model.UserName };
+                var user = new User() { UserName = model.UserName };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -335,7 +329,7 @@ namespace CellularAutomaton.Web.Controllers
             }
         }
 
-        private async Task SignInAsync(ApplicationUser user, bool isPersistent)
+        private async Task SignInAsync(User user, bool isPersistent)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);

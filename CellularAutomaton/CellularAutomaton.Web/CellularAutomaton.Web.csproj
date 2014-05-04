@@ -245,6 +245,10 @@
     <TypeScriptCompile Include="Scripts\example.ts" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CellularAutomaton.DependencyResolver\CellularAutomaton.DependencyResolver.csproj">
+      <Project>{cb5b4997-4812-4067-adac-d1bd0e6708ee}</Project>
+      <Name>CellularAutomaton.DependencyResolver</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CellularAutomaton.Domain\CellularAutomaton.Domain.csproj">
       <Project>{eb676aa1-4ff8-4565-b2ab-7f59a9380fc6}</Project>
       <Name>CellularAutomaton.Domain</Name>
