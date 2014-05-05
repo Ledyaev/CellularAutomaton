@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CellularAutomaton.Web.Models
 {
@@ -7,6 +8,10 @@ namespace CellularAutomaton.Web.Models
         [Required]
         [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
+
+        [Required]
+        [Display(Name = "Дата рождения")]
+        public DateTime BirthDay { get; set; }
     }
 
     public class ManageUserViewModel
@@ -30,11 +35,11 @@ namespace CellularAutomaton.Web.Models
 
     public class LoginViewModel
     {
-        [Required]
+       // [Required]
         [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
 
-        [Required]
+       // [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using CellularAutomaton.Context;
+using CellularAutomaton.Context.Interfaces;
 using CellularAutomaton.Domain;
 using CellularAutomaton.Repositories;
 using CellularAutomaton.Repositories.Interfaces;
@@ -34,8 +35,9 @@ namespace CellularAutomaton.DependencyResolver
 
         private void AddBindings()
         {
+            kernel.Bind<IContext>().To<CellularAutomatonContext>().InRequestScope();
             kernel.Bind<IUserStore<User>>().To<UserStore<User>>().WithConstructorArgument("context",new CellularAutomatonContext());
-            kernel.Bind<CellularAutomatonContext>().ToSelf().InRequestScope();
+            //kernel.Rebind<ModelValidatorProvider>().To<AttributeValidatorProvider>()
             kernel.Bind<IRepository<IEntity>>().To<GenericRepository<IEntity>>().InSingletonScope();
             //kernel.Bind<IRepository<Message>>().To<GenericRepository<Message>>().InSingletonScope();
             kernel.Bind<IUnitOfWork>().To<UnitOfWork.UnitOfWork>();

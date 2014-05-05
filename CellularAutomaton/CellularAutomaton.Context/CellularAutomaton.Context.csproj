@@ -57,6 +57,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CellularAutomaton.Context.Interfaces\CellularAutomaton.Context.Interfaces.csproj">
+      <Project>{b781a397-cd59-480b-8669-94d48c945d53}</Project>
+      <Name>CellularAutomaton.Context.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CellularAutomaton.Domain\CellularAutomaton.Domain.csproj">
       <Project>{eb676aa1-4ff8-4565-b2ab-7f59a9380fc6}</Project>
       <Name>CellularAutomaton.Domain</Name>

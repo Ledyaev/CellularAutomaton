@@ -15,6 +15,7 @@ using Microsoft.Owin;
 
 namespace CellularAutomaton.Web.Controllers
 {
+   // [RequireHttps]
     [Authorize]
     public class AccountController : Controller
     {
@@ -31,7 +32,7 @@ namespace CellularAutomaton.Web.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            return View(new LoginViewModel());
         }
 
         //
@@ -76,7 +77,7 @@ namespace CellularAutomaton.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User() { UserName = model.UserName , BirthDay = DateTime.Now};
+                var user = new User() { UserName = model.UserName};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

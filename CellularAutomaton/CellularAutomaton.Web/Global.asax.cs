@@ -14,7 +14,9 @@ namespace CellularAutomaton.Web
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            System.Web.Mvc.DependencyResolver.SetResolver(new DependencyResolver.DependencyResolver());
+            ModelValidatorProviders.Providers.Clear();
+            System.Web.Mvc.DependencyResolver.SetResolver(new CellularAutomaton.DependencyResolver.DependencyResolver());
+            //ModelValidatorProviders.Providers.Add(new ClientDataTypeModelValidatorProvider());
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

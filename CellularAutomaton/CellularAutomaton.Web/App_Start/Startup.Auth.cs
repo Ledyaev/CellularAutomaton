@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Google;
 using Owin;
 
 namespace CellularAutomaton.Web
@@ -10,6 +11,7 @@ namespace CellularAutomaton.Web
         // Дополнительные сведения о настройке проверки подлинности см. по адресу: http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+
             // Включение использования файла cookie, в котором приложение может хранить информацию для пользователя, выполнившего вход,
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
@@ -28,9 +30,9 @@ namespace CellularAutomaton.Web
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "283961221764931",
+               appSecret: "fff2f87762825342265e52748255a83e");
 
             app.UseGoogleAuthentication();
         }

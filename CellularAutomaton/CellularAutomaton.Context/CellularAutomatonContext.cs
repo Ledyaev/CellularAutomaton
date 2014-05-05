@@ -4,13 +4,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CellularAutomaton.Context.Interfaces;
 using CellularAutomaton.Context.Migrations;
 using CellularAutomaton.Domain;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CellularAutomaton.Context
 {
-    public class CellularAutomatonContext: IdentityDbContext
+    public class CellularAutomatonContext: IdentityDbContext, IContext
     {
         public CellularAutomatonContext()
             : base("CellularAutomatonContext")

@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using CellularAutomaton.Context;
+using CellularAutomaton.Context.Interfaces;
 using CellularAutomaton.Domain;
 using CellularAutomaton.Repositories.Interfaces;
 
@@ -13,10 +14,10 @@ namespace CellularAutomaton.Repositories
 {
     public class GenericRepository<TEntity>: IRepository<TEntity> where TEntity: IEntity
     {
-        internal DbContext context;
+        internal IContext context;
         internal DbSet dbSet;
 
-        public GenericRepository(CellularAutomatonContext context)
+        public GenericRepository(IContext context)
         {
             this.context = context;
             this.dbSet = context.Set(typeof(TEntity));

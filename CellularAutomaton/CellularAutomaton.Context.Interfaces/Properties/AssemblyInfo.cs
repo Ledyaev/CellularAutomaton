@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("CellularAutomaton.Context.Interfaces")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("itransition.corp")]
 [assembly: AssemblyProduct("CellularAutomaton.Context.Interfaces")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright © itransition.corp 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
-[assembly: Guid("baead65c-5106-4c7a-91b5-3aec7ea8c3c6")]
+[assembly: Guid("57b2f4d9-fcf0-4e54-99bb-88b6bde43ce6")]
 
 // Сведения о версии сборки состоят из следующих четырех значений:
 //

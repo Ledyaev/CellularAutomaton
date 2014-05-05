@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CellularAutomaton.Context;
+using CellularAutomaton.Context.Interfaces;
 using CellularAutomaton.Domain;
 using CellularAutomaton.Repositories;
 using CellularAutomaton.Repositories.Interfaces;
@@ -14,13 +15,14 @@ namespace CellularAutomaton.UnitOfWork
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
 
-        public UnitOfWork(IRepository<User> usersRepository, IRepository<Message> messagesRepository)
+        public UnitOfWork(IRepository<User> usersRepository, IRepository<Message> messagesRepository, IContext context)
         {
             this.UsersRepository = usersRepository;
             this.MessagesRepository = messagesRepository;
+            this.context = context;
         }
 
-        private CellularAutomatonContext context = new CellularAutomatonContext();
+        private IContext context;
 
         public IRepository<User> UsersRepository { get; private set; }
 

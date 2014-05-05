@@ -14,14 +14,6 @@ namespace CellularAutomaton.Domain
 
         public string NickName { get; set; }
 
-        public DateTime BirthDay { get; set; }
-
-        public string Avatar { get; set; }
-
-        public string Thumbnail { get; set; }
-
-        public string Icon { get; set; }
-
         public string ConfirmationToken { get; set; }
 
         public bool IsConfirmed { get; set; }
