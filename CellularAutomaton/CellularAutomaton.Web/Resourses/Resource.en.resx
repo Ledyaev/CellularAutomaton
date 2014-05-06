@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChoseLang" xml:space="preserve">
-    <value>Язык</value>
+    <value>Language</value>
   </data>
   <data name="Dark" xml:space="preserve">
     <value>Темная</value>
@@ -126,28 +126,22 @@
   <data name="English" xml:space="preserve">
     <value>Английский</value>
   </data>
-  <data name="Hello" xml:space="preserve">
-    <value>Здравствуйте</value>
-  </data>
-  <data name="InvalidEmailOrPassword" xml:space="preserve">
-    <value>Неверный логин пароль</value>
-  </data>
   <data name="Light" xml:space="preserve">
     <value>Светлая</value>
   </data>
   <data name="LogIn" xml:space="preserve">
-    <value>Выполнить вход</value>
+    <value>Log In</value>
   </data>
   <data name="ProjectName" xml:space="preserve">
-    <value>Клеточный автомат</value>
+    <value>CellularAutomaton</value>
   </data>
   <data name="Registration" xml:space="preserve">
-    <value>Регистрация</value>
+    <value>Registration</value>
   </data>
   <data name="Russian" xml:space="preserve">
     <value>Русский</value>
   </data>
   <data name="Theme" xml:space="preserve">
-    <value>Цветовая тема</value>
+    <value>Theme</value>
   </data>
 </root>

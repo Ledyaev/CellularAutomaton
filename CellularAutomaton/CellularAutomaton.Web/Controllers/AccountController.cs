@@ -10,8 +10,10 @@ using CellularAutomaton.Domain;
 using CellularAutomaton.Web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin;
+using Resources;
 
 namespace CellularAutomaton.Web.Controllers
 {
@@ -52,7 +54,7 @@ namespace CellularAutomaton.Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invalid username or password.");
+                    ModelState.AddModelError("", Resource.InvalidEmailOrPassword);
                 }
             }
 
@@ -195,7 +197,7 @@ namespace CellularAutomaton.Web.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+            var loginInfo =await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
                 return RedirectToAction("Login");
@@ -210,7 +212,7 @@ namespace CellularAutomaton.Web.Controllers
             }
             else
             {
-                // If the user does not have an account, then prompt the user to create an account
+                 //If the user does not have an account, then prompt the user to create an account
                 ViewBag.ReturnUrl = returnUrl;
                 ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                 return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName });

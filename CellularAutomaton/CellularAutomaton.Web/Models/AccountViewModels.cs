@@ -35,11 +35,11 @@ namespace CellularAutomaton.Web.Models
 
     public class LoginViewModel
     {
-       // [Required]
+        [Required]
         [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
 
-       // [Required]
+        [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }

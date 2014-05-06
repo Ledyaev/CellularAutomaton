@@ -29,6 +29,7 @@ namespace CellularAutomaton.Web
             //app.UseTwitterAuthentication(
             //   consumerKey: "",
             //   consumerSecret: "");
+            
 
             app.UseFacebookAuthentication(
                appId: "283961221764931",

@@ -25,7 +25,6 @@ namespace CellularAutomaton.Web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",
-                      "~/Content/bootstrap-dark-theme.css",
                       "~/Content/site.css"));
         }
     }

@@ -15,6 +15,8 @@
         this.table = new Array<Array<Cell>>(n);
         this.city = new Array<Array<boolean>>(n);
         this.newCity = new Array<Array<boolean>>(n);
+        var date = new Date();
+        var time = date.getTime()/1000;
         for (var i = 0; i < n; i++) {
             var row = <HTMLTableRowElement> playAreaTable.insertRow(-1);
             this.table[i] = new Array<Cell>(n);
@@ -30,6 +32,8 @@
                 this.newCity[i][j] = false;
             }
         }
+        time = new Date().getTime()/1000- time;
+        window.alert(time);
         var button = document.getElementById("step");
         button.onclick = (e: MouseEvent) => { this.CalculateNewState() };
         area.appendChild(playAreaTable);

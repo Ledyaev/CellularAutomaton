@@ -8,8 +8,7 @@ using CellularAutomaton.Web.Filters;
 
 namespace CellularAutomaton.Web.Controllers
 {
-
-    [Theme]
+    [Culture]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -31,16 +30,23 @@ namespace CellularAutomaton.Web.Controllers
             return View();
         }
 
-        public ActionResult ChangeCulture(string theme)
+        public ActionResult CurrentTheme()
         {
-            string returnUrl = Request.UrlReferrer.AbsolutePath;
-            // Список культур
-            List<string> themes = new List<string>() { "dark", "light" };
-            if (!themes.Contains(theme))
+            HttpCookie cookie = Request.Cookies["theme"];
+            if (cookie == null)
             {
-                theme = "dark";
+                cookie = new HttpCookie("theme");
+                cookie.HttpOnly = false;
+                cookie.Value = "light.css";
+                cookie.Expires = DateTime.Now.AddYears(1);
             }
-            // Сохраняем выбранную культуру в куки
+            Response.Cookies.Add(cookie);
+            return Content(cookie.Value);
+        }
+
+
+        public ActionResult ChangeTheme(string theme)
+        {
             HttpCookie cookie = Request.Cookies["theme"];
             if (cookie != null)
                 cookie.Value = theme;   // если куки уже установлено, то обновляем значение
@@ -49,6 +55,30 @@ namespace CellularAutomaton.Web.Controllers
                 cookie = new HttpCookie("theme");
                 cookie.HttpOnly = false;
                 cookie.Value = theme;
+                cookie.Expires = DateTime.Now.AddYears(1);
+            }
+            Response.Cookies.Add(cookie);
+            return Redirect(Request.UrlReferrer.AbsolutePath);
+        }
+
+        public ActionResult ChangeCulture(string lang)
+        {
+            string returnUrl = Request.UrlReferrer.AbsolutePath;
+            // Список культур
+            List<string> cultures = new List<string>() { "ru", "en" };
+            if (!cultures.Contains(lang))
+            {
+                lang = "ru";
+            }
+            // Сохраняем выбранную культуру в куки
+            HttpCookie cookie = Request.Cookies["lang"];
+            if (cookie != null)
+                cookie.Value = lang;   // если куки уже установлено, то обновляем значение
+            else
+            {
+                cookie = new HttpCookie("lang");
+                cookie.HttpOnly = false;
+                cookie.Value = lang;
                 cookie.Expires = DateTime.Now.AddYears(1);
             }
             Response.Cookies.Add(cookie);
