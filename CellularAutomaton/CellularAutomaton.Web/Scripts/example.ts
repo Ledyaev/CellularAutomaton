@@ -1,4 +1,5 @@
-﻿class Life {
+﻿/// <reference path="typings/jquery/jquery.d.ts" />
+class Life {
 
     table: Array<Array<Cell>>;
     city: Array<Array<boolean>>;
@@ -86,6 +87,5 @@
     }
 }
 
-var life = new Life();
-life.Initialize(1000);
-
+    var life = new Life();
+    life.Initialize(1000);

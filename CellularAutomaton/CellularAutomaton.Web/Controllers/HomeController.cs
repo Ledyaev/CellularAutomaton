@@ -20,7 +20,7 @@ namespace CellularAutomaton.Web.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            return View(User);
         }
 
         public ActionResult Contact()
