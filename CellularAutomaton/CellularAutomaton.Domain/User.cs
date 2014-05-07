@@ -16,8 +16,6 @@ namespace CellularAutomaton.Domain
 
         public string ConfirmationToken { get; set; }
 
-        public bool IsConfirmed { get; set; }
-
         [InverseProperty("Recipient")]
         public virtual List<Message> IncomingMessages { get; set; }
 

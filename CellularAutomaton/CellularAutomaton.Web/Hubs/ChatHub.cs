@@ -11,23 +11,27 @@ namespace CellularAutomaton.Web.Hubs
 {
     public class ChatHub : Hub
     {
-        static List<TempUser> Users = new List<TempUser>();
+        static List<ChatUser> Users = new List<ChatUser>();
 
+        private string username;
+        public ChatHub()
+        {
+            int x = 1;
+        }
         // Отправка сообщений
         public void Send(string name, string message)
         {
-            Clients.Client("fa2b3c08-3af9-4020-bfca-4596f87cba2e").addMessage(name, message);
-            //Clients.Client().addMessage(name, message);
+            Clients.All.addMessage(name, message);
         }
 
         // Подключение нового пользователя
-        public void Connect()
+        public void Connect(string userName)
         {
             var id = Context.ConnectionId;
-
+            this.username = username;
             if (Users.Count(x => x.ConnectionId == id) == 0)
             {
-                Users.Add(new TempUser { ConnectionId = id, Name = userName });
+                Users.Add(new ChatUser { ConnectionId = id, UserName = userName });
 
                 // Посылаем сообщение текущему пользователю
                 Clients.Caller.onConnected(id, userName, Users);
@@ -45,7 +49,7 @@ namespace CellularAutomaton.Web.Hubs
             {
                 Users.Remove(item);
                 var id = Context.ConnectionId;
-                Clients.All.onUserDisconnected(id, item.Name);
+                Clients.All.onUserDisconnected(id, item.UserName);
             }
 
             return base.OnDisconnected();

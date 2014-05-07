@@ -58,6 +58,8 @@ class Life {
         }
     }
 
+
+
     CalculateNewState(): any {
         for (var i = 0; i < this.areaSize; i++)
             for (var j = 0; j < this.areaSize; j++) {

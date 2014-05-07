@@ -1,30 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using CellularAutomaton.Domain;
+using CellularAutomaton.Services.Interfaces;
+using CellularAutomaton.Web.Filters;
 using CellularAutomaton.Web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin;
+using Postal;
 using Resources;
 
 namespace CellularAutomaton.Web.Controllers
 {
    // [RequireHttps]
+    [Culture]
     [Authorize]
     public class AccountController : Controller
     {
         public AccountController(IUserStore<User> userStore)
         {
+
             UserManager = new UserManager<User>(userStore);
+           // UserService = userService;
         }
+
+        //private IUserService UserService { get; set; }
 
         public UserManager<User> UserManager { get; private set; }
 
@@ -47,7 +57,7 @@ namespace CellularAutomaton.Web.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
-                if (user != null)
+                if (user != null && user.EmailConfirmed)
                 {
                     await SignInAsync(user, model.RememberMe);
                     return RedirectToLocal(returnUrl);
@@ -70,6 +80,16 @@ namespace CellularAutomaton.Web.Controllers
             return View();
         }
 
+        private void SendEmailConfirmation(string to, string username, string confirmationToken)
+        {
+            dynamic email = new Email("RegEmail");
+            email.To = to;
+            email.UserName = username;
+            email.ConfirmationToken = confirmationToken;
+            email.Send();
+        }
+
+
         //
         // POST: /Account/Register
         [HttpPost]
@@ -77,24 +97,63 @@ namespace CellularAutomaton.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            string error = "";
             if (ModelState.IsValid)
             {
-                var user = new User() { UserName = model.UserName};
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                var confirmationToken = Guid.NewGuid().ToString();
+                if (UserManager.Users.FirstOrDefault(u => u.Email == model.Email)!=null)
                 {
-                    await SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    error=Resource.UniqueEmailError;
                 }
                 else
                 {
-                    AddErrors(result);
+                    var user = new User() { UserName = model.UserName, Email = model.Email, ConfirmationToken = confirmationToken};
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        SendEmailConfirmation(model.Email, model.UserName, confirmationToken);
+                        return View("RegisterStepTwo");
+                    }
+                    else
+                    {
+                        if(!error.IsEmpty())
+                            ModelState.AddModelError("",error);
+                        AddErrors(result);
+                    }
                 }
             }
-
+            ModelState.AddModelError("", error);
             // Появление этого сообщения означает наличие ошибки; повторное отображение формы
             return View(model);
         }
+
+        private bool ConfirmAccount(string confirmationToken)
+        {
+            var user = UserManager.Users.SingleOrDefault(u => u.ConfirmationToken == confirmationToken);
+            if (user != null)
+            {
+                user.EmailConfirmed = true;
+                UserManager.Update(user);
+               // UserService.Update(user);
+                //UserService.Save();
+                return true;
+            }
+            return false;
+        }
+
+        [AllowAnonymous]
+        public ActionResult RegisterConfirmation(string confirmationToken)
+        {
+            if (ConfirmAccount(confirmationToken))
+            {
+                ViewBag.IsConfirmed = true;
+            }
+            ViewBag.IsConfirmed = false;
+            return View();
+        }
+
+
+
 
         //
         // POST: /Account/Disassociate

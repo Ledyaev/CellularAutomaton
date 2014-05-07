@@ -117,14 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BirthDay" xml:space="preserve">
+    <value>Date of Birth</value>
+  </data>
   <data name="ChoseLang" xml:space="preserve">
     <value>Language</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Current Password</value>
   </data>
   <data name="Dark" xml:space="preserve">
     <value>Темная</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="English" xml:space="preserve">
     <value>Английский</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Hello</value>
+  </data>
+  <data name="InvalidEmailOrPassword" xml:space="preserve">
+    <value>Invalid Email Or Password</value>
   </data>
   <data name="Light" xml:space="preserve">
     <value>Светлая</value>
@@ -132,16 +150,43 @@
   <data name="LogIn" xml:space="preserve">
     <value>Log In</value>
   </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="NotMachedPasswords" xml:space="preserve">
+    <value>Passwords do not match</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordError" xml:space="preserve">
+    <value>The value {0} must contain at least {2} characters.</value>
+  </data>
   <data name="ProjectName" xml:space="preserve">
     <value>CellularAutomaton</value>
   </data>
   <data name="Registration" xml:space="preserve">
     <value>Registration</value>
   </data>
+  <data name="RegistrationFailure" xml:space="preserve">
+    <value>Dear user, unfortunately registration was not completed successfully.</value>
+  </data>
+  <data name="RegistrationSuccess" xml:space="preserve">
+    <value>Dear user, you are successfully registered.</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember me</value>
+  </data>
   <data name="Russian" xml:space="preserve">
     <value>Русский</value>
   </data>
   <data name="Theme" xml:space="preserve">
     <value>Theme</value>
+  </data>
+  <data name="UniqueEmailError" xml:space="preserve">
+    <value>Email must be unique.</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>User Name</value>
   </data>
 </root>

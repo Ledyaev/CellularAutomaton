@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "RegEmail";
+}
+
+To: @ViewBag.To
+From: admin@cellularautomaton.com
+Subject: Important Message
+
+Здравствуйте, @ViewBag.UserName
+Для подтверждения регистрации пройдите <a href="localhost:44301/Account/RegisterConfirmation?confirmationToken=@ViewBag.ConfirmationToken">по ссылке.</a>
+

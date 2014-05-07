@@ -150,4 +150,43 @@
   <data name="Theme" xml:space="preserve">
     <value>Цветовая тема</value>
   </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Имя пользователя</value>
+  </data>
+  <data name="BirthDay" xml:space="preserve">
+    <value>Дата рождения</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Текущий пароль</value>
+  </data>
+  <data name="PasswordError" xml:space="preserve">
+    <value>Значение {0} должно содержать не менее {2} символов.</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Новый пароль</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Подтверждение нового пароля</value>
+  </data>
+  <data name="NotMachedPasswords" xml:space="preserve">
+    <value>Новый пароль и его подтверждение не совпадают.</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Запомнить меня</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Электронный адрес</value>
+  </data>
+  <data name="RegistrationFailure" xml:space="preserve">
+    <value>Уважаемый пользователь, к сожалению регистрацию не была проведена успешно.</value>
+  </data>
+  <data name="RegistrationSuccess" xml:space="preserve">
+    <value>Уважаемый пользователь, вы были успешно зарегистрированы.</value>
+  </data>
+  <data name="UniqueEmailError" xml:space="preserve">
+    <value>Email должен быть уникальным.</value>
+  </data>
 </root>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CellularAutomaton.Context;
+using CellularAutomaton.Context.Migrations;
 
 namespace CellularAutomaton.Services
 {
@@ -12,7 +13,7 @@ namespace CellularAutomaton.Services
     {
         public void Initialize()
         {
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<CellularAutomatonContext>);
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<CellularAutomatonContext,Configuration>());
         }
     }
 }

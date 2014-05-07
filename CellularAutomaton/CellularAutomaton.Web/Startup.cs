@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNet.SignalR;
+using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(CellularAutomaton.Web.Startup))]
@@ -10,7 +11,6 @@ namespace CellularAutomaton.Web
         {
             app.MapSignalR();
             ConfigureAuth(app);
-
         }
     }
 }

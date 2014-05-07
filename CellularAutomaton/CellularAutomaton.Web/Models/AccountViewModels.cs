@@ -1,16 +1,18 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
+using Resources;
 
 namespace CellularAutomaton.Web.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Имя пользователя")]
+        [Display(ResourceType = typeof (Resource), Name = "UserName")]
         public string UserName { get; set; }
 
         [Required]
-        [Display(Name = "Дата рождения")]
+        [Display(ResourceType = typeof (Resource), Name = "BirthDay")]
         public DateTime BirthDay { get; set; }
     }
 
@@ -18,51 +20,56 @@ namespace CellularAutomaton.Web.Models
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Текущий пароль")]
+        [Display(ResourceType = typeof (Resource), Name = "CurrentPassword")]
         public string OldPassword { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof (Resource), ErrorMessageResourceName = "PasswordError", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Новый пароль")]
+        [Display(ResourceType = typeof (Resource), Name = "NewPassword")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Подтверждение нового пароля")]
-        [Compare("NewPassword", ErrorMessage = "Новый пароль и его подтверждение не совпадают.")]
+        [Display(ResourceType = typeof (Resource), Name = "ConfirmPassword")]
+        [Compare("NewPassword", ErrorMessageResourceType = typeof (Resource), ErrorMessageResourceName = "NotMachedPasswords")]
         public string ConfirmPassword { get; set; }
     }
 
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Имя пользователя")]
+        [Display(ResourceType = typeof (Resource), Name = "UserName")]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Пароль")]
+        [Display(ResourceType = typeof (Resource), Name = "Password")]
         public string Password { get; set; }
 
-        [Display(Name = "Запомнить меня")]
+        [Display(ResourceType = typeof (Resource), Name = "RememberMe")]
         public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "Имя пользователя")]
+        [Display(ResourceType = typeof (Resource), Name = "UserName")]
         public string UserName { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof (Resource), ErrorMessageResourceName = "PasswordError", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Пароль")]
+        [Display(ResourceType = typeof (Resource), Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Подтверждение пароля")]
-        [Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
+        [Display(ResourceType = typeof (Resource), Name = "ConfirmPassword")]
+        [Compare("Password", ErrorMessageResourceType = typeof (Resource), ErrorMessageResourceName = "NotMachedPasswords")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [Display(ResourceType = typeof (Resource), Name = "Email")]
+        public string Email { get; set; }
     }
 }
