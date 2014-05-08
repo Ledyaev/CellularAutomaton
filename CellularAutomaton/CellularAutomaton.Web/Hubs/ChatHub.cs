@@ -28,16 +28,14 @@ namespace CellularAutomaton.Web.Hubs
         public void Connect(string userName)
         {
             var id = Context.ConnectionId;
-            this.username = username;
             if (Users.Count(x => x.ConnectionId == id) == 0)
             {
                 Users.Add(new ChatUser { ConnectionId = id, UserName = userName });
+                //// Посылаем сообщение текущему пользователю
+                //Clients.Caller.onConnected(id, userName, Users);
 
-                // Посылаем сообщение текущему пользователю
-                Clients.Caller.onConnected(id, userName, Users);
-
-                // Посылаем сообщение всем пользователям, кроме текущего
-                Clients.AllExcept(id).onNewUserConnected(id, userName);
+                //// Посылаем сообщение всем пользователям, кроме текущего
+                //Clients.AllExcept(id).onNewUserConnected(id, userName);
             }
         }
 

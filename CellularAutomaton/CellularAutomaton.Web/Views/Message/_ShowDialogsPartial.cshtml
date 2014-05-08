@@ -1,0 +1,12 @@
+﻿@model Dictionary<String, int>
+           @if (Model.Any())
+           {
+               foreach (var x in Model)
+               {
+                   <li id="@x.Key"><strong>@x.Key</strong>  <span>@x.Value</span></li>
+               }
+           }
+           else
+           {
+                <span> У вас нет ни одного диалога.</span>
+           }

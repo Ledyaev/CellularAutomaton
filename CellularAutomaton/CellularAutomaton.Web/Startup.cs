@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.SignalR;
+﻿using System.Web.Configuration;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
 using Owin;
 

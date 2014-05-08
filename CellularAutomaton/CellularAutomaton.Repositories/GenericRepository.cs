@@ -23,8 +23,6 @@ namespace CellularAutomaton.Repositories
             this.dbSet = context.Set(typeof(TEntity));
         }
 
-
-
         IEnumerable<TEntity> IRepository<TEntity>.Get(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy, string includeProperties)
         {
             var query = (IQueryable<TEntity>)dbSet;

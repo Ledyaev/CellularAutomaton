@@ -18,8 +18,7 @@ using Ninject;
 using Ninject.Syntax;
 using Ninject.Parameters;
 using Ninject.Syntax;
-using Ninject.Web.Common;
-using Ninject.Web.Mvc;
+
 
 namespace CellularAutomaton.DependencyResolver
 {
@@ -35,14 +34,15 @@ namespace CellularAutomaton.DependencyResolver
 
         private void AddBindings()
         {
-            kernel.Bind<IContext>().To<CellularAutomatonContext>().InRequestScope();
+            kernel.Bind<IMessageService>().To<MessageService>();
+            //kernel.Bind<IContext>().To<CellularAutomatonContext>().InRequestScope();
             kernel.Bind<IUserStore<User>>().To<UserStore<User>>().WithConstructorArgument("context",new CellularAutomatonContext());
             //kernel.Rebind<ModelValidatorProvider>().To<AttributeValidatorProvider>()
             kernel.Bind<IRepository<IEntity>>().To<GenericRepository<IEntity>>().InSingletonScope();
             //kernel.Bind<IRepository<Message>>().To<GenericRepository<Message>>().InSingletonScope();
             kernel.Bind<IUnitOfWork>().To<UnitOfWork.UnitOfWork>();
             kernel.Bind<IUserService>().To<UserService>();
-            kernel.Bind<IMessageService>().To<MessageService>();
+            
         }
 
 

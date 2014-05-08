@@ -72,4 +72,11 @@ namespace CellularAutomaton.Web.Models
         [Display(ResourceType = typeof (Resource), Name = "Email")]
         public string Email { get; set; }
     }
+
+    public class DialogViewModel
+    {
+        public string Name { get; set; }
+
+        public int Count { get; set; }
+    }
 }

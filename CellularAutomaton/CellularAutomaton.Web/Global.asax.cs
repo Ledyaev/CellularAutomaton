@@ -5,7 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using CellularAutomaton.DependencyResolver;
+//using CellularAutomaton.DependencyResolver;
+using CellularAutomaton.Web.App_Start;
+using Ninject.Web.Common;
+using WebGrease.Configuration;
 
 namespace CellularAutomaton.Web
 {
@@ -14,10 +17,13 @@ namespace CellularAutomaton.Web
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            ModelValidatorProviders.Providers.Clear();
-            System.Web.Mvc.DependencyResolver.SetResolver(new CellularAutomaton.DependencyResolver.DependencyResolver());
+           // ModelValidatorProviders.Providers.Clear();
+           // ModelValidatorProviders.Providers.Remove(ModelValidatorProviders.Providers.OfType<DataAnnotationsModelValidatorProvider>().Single());
+            //System.Web.Mvc.DependencyResolver.SetResolver(new DependencyResolver.DependencyResolver());
+            //NinjectWebCommon.Start();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }

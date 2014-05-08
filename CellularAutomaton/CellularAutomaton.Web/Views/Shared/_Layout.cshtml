@@ -24,7 +24,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
-                    <li>@Html.ActionLink("О программе", "About", "Home")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("О программе", "MyMessages", "Message")</li>
+                    }
                     <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">@Resource.Theme<b class="caret"></b></a>
@@ -56,5 +59,43 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+    var chat = $.connection.chatHub;
+    // Объявление функции, которая хаб вызывает при получении сообщений
+    chat.client.addMessage = function (name, message) {
+        // Добавление сообщений на веб-страницу
+        $('#chatroom ul').append('<li><strong>' + htmlEncode(name)
+            + '</strong>: ' + htmlEncode(message) + '</li>');
+    };
+
+    // Функция, вызываемая при подключении нового пользователя
+    chat.client.onConnected = function (id, userName, allUsers) {
+        // Добавление всех пользователей
+        //for (i = 0; i < allUsers.length; i++) {
+        //    AddUser(allUsers[i].ConnectionId, allUsers[i].Name);
+        //}
+    };
+
+    // Добавляем нового пользователя
+    chat.client.onNewUserConnected = function (id, name) {
+    };
+
+    // Удаляем пользователя
+    chat.client.onUserDisconnected = function (id, userName) {
+    };
+
+    // Открываем соединение
+    $.connection.hub.start().done(function () {
+        
+            chat.server.connect("@User.Identity.Name");
+    });
+    
+    // Кодирование тегов
+    function htmlEncode(value) {
+        var encodedValue = $('<div />').text(value).html();
+        return encodedValue;
+    }
+    </script>
+
 </body>
 </html>

@@ -18,37 +18,37 @@ namespace CellularAutomaton.Services
         {
             this.unitOfWork = unitOfWork;
         }
-        IEnumerable<User> IUserService.Get(Expression<Func<User, bool>> filter, Func<IQueryable<User>, IOrderedQueryable<User>> orderBy, string includeProperties)
+        IEnumerable<User> IService<User>.Get(Expression<Func<User, bool>> filter, Func<IQueryable<User>, IOrderedQueryable<User>> orderBy, string includeProperties)
         {
             return unitOfWork.UsersRepository.Get(filter, orderBy, includeProperties);
         }
 
-        User IUserService.GetById(string id)
+        User IService<User>.GetById(string id)
         {
             return unitOfWork.UsersRepository.GetById(id);
         }
 
-        void IUserService.Insert(User entity)
+        void IService<User>.Insert(User entity)
         {
             unitOfWork.UsersRepository.Insert(entity);
         }
 
-        void IUserService.Delete(object id)
+        void IService<User>.Delete(object id)
         {
             unitOfWork.UsersRepository.Delete(id);
         }
 
-        void IUserService.Delete(User entityToDelete)
+        void IService<User>.Delete(User entityToDelete)
         {
             unitOfWork.UsersRepository.Delete(entityToDelete);
         }
 
-        void IUserService.Update(User entityToUpdate)
+        void IService<User>.Update(User entityToUpdate)
         {
             unitOfWork.UsersRepository.Update(entityToUpdate);
         }
 
-        void IUserService.Save()
+        void IService<User>.Save()
         {
             unitOfWork.Save();
         }

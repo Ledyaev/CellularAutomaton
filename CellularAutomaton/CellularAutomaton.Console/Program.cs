@@ -16,16 +16,6 @@ namespace CellularAutomaton.Console
         static void Main(string[] args)
         {
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<CellularAutomatonContext, Configuration>());
-            var unitOfWork = new UnitOfWork.UnitOfWork();
-            var user = new User()
-            {
-                Id = Guid.NewGuid().ToString(),
-                NickName = "jfkhkfgki",
-                BirthDay = DateTime.Now,
-                UserName = "Ssdfasdfsd"
-            };
-            unitOfWork.UsersRepository.Insert(user);
-            unitOfWork.Save();
             
         }
     }

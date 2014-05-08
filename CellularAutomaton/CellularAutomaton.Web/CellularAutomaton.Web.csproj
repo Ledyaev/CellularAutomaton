@@ -88,6 +88,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.Web.Common.3.2.0.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.MVC4.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Postal">
       <HintPath>..\packages\Postal.0.9.2\lib\net40\Postal.dll</HintPath>
     </Reference>
@@ -148,6 +160,10 @@
       <Private>True</Private>
       <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -177,10 +193,12 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Filters\CultureAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -241,7 +259,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
@@ -259,10 +276,12 @@
     <Content Include="Views\Emails\RegEmail.cshtml" />
     <Content Include="Views\Account\RegisterStepTwo.cshtml" />
     <Content Include="Views\Account\RegisterConfirmation.cshtml" />
+    <Content Include="Views\Message\ChatRoom.cshtml" />
+    <Content Include="Views\Message\MyMessages.cshtml" />
+    <Content Include="Views\Message\_ShowDialogsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Attributes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -274,17 +293,41 @@
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CellularAutomaton.DependencyResolver\CellularAutomaton.DependencyResolver.csproj">
-      <Project>{cb5b4997-4812-4067-adac-d1bd0e6708ee}</Project>
-      <Name>CellularAutomaton.DependencyResolver</Name>
+    <ProjectReference Include="..\CellularAutomaton.Context.Interfaces\CellularAutomaton.Context.Interfaces.csproj">
+      <Project>{b781a397-cd59-480b-8669-94d48c945d53}</Project>
+      <Name>CellularAutomaton.Context.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CellularAutomaton.Context\CellularAutomaton.Context.csproj">
+      <Project>{525301de-7f0a-43d8-9558-3cdbf9600463}</Project>
+      <Name>CellularAutomaton.Context</Name>
     </ProjectReference>
     <ProjectReference Include="..\CellularAutomaton.Domain\CellularAutomaton.Domain.csproj">
       <Project>{eb676aa1-4ff8-4565-b2ab-7f59a9380fc6}</Project>
       <Name>CellularAutomaton.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CellularAutomaton.Repositories.Interfaces\CellularAutomaton.Repositories.Interfaces.csproj">
+      <Project>{64d2d3ff-de71-47f7-8bc6-7144f5929a68}</Project>
+      <Name>CellularAutomaton.Repositories.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CellularAutomaton.Repositories\CellularAutomaton.Repositories.csproj">
+      <Project>{bc3158d1-56b0-47db-a1a6-26d8ae23e14c}</Project>
+      <Name>CellularAutomaton.Repositories</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CellularAutomaton.Services.Interfaces\CellularAutomaton.Services.Interfaces.csproj">
       <Project>{816d07cf-5086-49de-a919-8f506436977d}</Project>
       <Name>CellularAutomaton.Services.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CellularAutomaton.Services\CellularAutomaton.Services.csproj">
+      <Project>{be01f6c0-3440-4a00-a299-a5d8d02209c3}</Project>
+      <Name>CellularAutomaton.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CellularAutomaton.UnitOfWork.Interfaces\CellularAutomaton.UnitOfWork.Interfaces.csproj">
+      <Project>{fadbd531-6436-44ad-b72e-dbdbbcaf6579}</Project>
+      <Name>CellularAutomaton.UnitOfWork.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CellularAutomaton.UnitOfWork\CellularAutomaton.UnitOfWork.csproj">
+      <Project>{3e68e1b6-7de0-4874-9d52-f5373fbbe31a}</Project>
+      <Name>CellularAutomaton.UnitOfWork</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

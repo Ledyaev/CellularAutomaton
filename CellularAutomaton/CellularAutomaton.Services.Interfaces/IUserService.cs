@@ -8,22 +8,8 @@ using CellularAutomaton.Domain;
 
 namespace CellularAutomaton.Services.Interfaces
 {
-    public interface IUserService
+    public interface IUserService: IService<User>
     {
 
-        IEnumerable<User> Get(Expression<Func<User, bool>> filter,
-            Func<IQueryable<User>, IOrderedQueryable<User>> orderBy, string includeProperties);
-
-        User GetById(string id);
-
-        void Insert(User entity);
-
-        void Delete(object id);
-
-        void Delete(User entityToDelete);
-
-        void Update(User entityToUpdate);
-
-        void Save();
     }
 }

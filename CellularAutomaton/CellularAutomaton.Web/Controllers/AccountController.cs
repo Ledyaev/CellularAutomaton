@@ -29,7 +29,6 @@ namespace CellularAutomaton.Web.Controllers
     {
         public AccountController(IUserStore<User> userStore)
         {
-
             UserManager = new UserManager<User>(userStore);
            // UserService = userService;
         }
@@ -71,6 +70,14 @@ namespace CellularAutomaton.Web.Controllers
             // Появление этого сообщения означает наличие ошибки; повторное отображение формы
             return View(model);
         }
+
+
+        public ActionResult GetUser(string userName)
+        {
+            var user =  UserManager.FindByName(userName);
+            return Json(user == null ? false : true, JsonRequestBehavior.AllowGet);
+        }
+
 
         //
         // GET: /Account/Register
@@ -151,7 +158,6 @@ namespace CellularAutomaton.Web.Controllers
             ViewBag.IsConfirmed = false;
             return View();
         }
-
 
 
 

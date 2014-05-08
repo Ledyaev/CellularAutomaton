@@ -1,0 +1,133 @@
+﻿
+@using Microsoft.AspNet.Identity
+@model   System.Security.Principal.IPrincipal
+@{
+    ViewBag.Title = "Чат";
+}
+
+<h2>Чат-комната пользователя @Model.Identity.Name</h2>
+
+<div class="container">
+    <div class="bg-success col-md-6 col-md-offset-3">
+        <div class="navbar navbar-inverse">
+            <form class="navbar-left navbar-form" role="search">
+                <div class="row">
+                    <div class="form-group">
+                        <input id="story" type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button id="searchUser" type="submit" class="btn btn-default ">Поиск</button>
+                </div>
+                
+            </form>
+        </div>
+        <div id="chatroom">
+            <ul>
+                @Html.Action("ShowDialogs", "Message")
+            </ul>
+        </div>
+        
+        @Html.ActionLink("Next page", "ChatRoom", "Message", new { @class = "btn btn-default" })
+        <span id="оnlineUsers">
+            <input id="username" type="hidden" />
+        </span>
+    </div>
+</div>
+@section scripts {
+    <!--Ссылка на библиотеку SignalR -->
+    <script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
+    <!--Ссылка на автоматически сгенерированный скрипт хаба SignalR -->
+    <script src="~/signalr/hubs"></script>
+    <script>
+        var chat = $.connection.chatHub;
+        // Объявление функции, которая хаб вызывает при получении сообщений
+        chat.client.addMessage = function (name, message) {
+            // Добавление сообщений на веб-страницу
+            $('#chatroom ul').append('<li><strong>' + htmlEncode(name)
+                + '</strong>: ' + htmlEncode(message) + '</li>');
+        };
+
+        // Функция, вызываемая при подключении нового пользователя
+        chat.client.onConnected = function(id, userName, allUsers) {
+            // $('#chatBody').show();
+            // установка в скрытых полях имени и id текущего пользователя
+            //  $('#username').val(userName);
+            $('#header').html('<h3>Добро пожаловать, ' + @User.Identity.Name + '</h3>');
+
+            // Добавление всех пользователей
+            //for (i = 0; i < allUsers.length; i++) {
+
+            //    AddUser(allUsers[i].Name);
+            //}
+        };
+
+        // Добавляем нового пользователя
+        chat.client.onNewUserConnected = function(id, name) {
+
+            AddUser(id, name);
+        };
+
+        // Удаляем пользователя
+        chat.client.onUserDisconnected = function(id, userName) {
+
+            $('#' + id).remove();
+        };
+
+        // Открываем соединение
+        $.connection.hub.start().done(function () {
+
+            $('#sendmessage').click(function () {
+                // Вызываем у хаба метод Send
+                chat.server.send($('#username').val(), $('#message').val());
+                $('#message').val('');
+            });
+
+            // обработка логина
+            $(document).ready(function() {
+                chat.server.connect("@User.Identity.Name");
+            });
+        });
+        // Кодирование тегов
+        function htmlEncode(value) {
+            var encodedValue = $('<div />').text(value).html();
+            return encodedValue;
+        }
+    //Добавление нового пользователя
+        //function AddUser(name) {
+        //    var userId = $('#hdId').val();
+        //    if (userId != id) {
+
+        //        $("#chatusers ul").append('<li id="' + id + '" class="user" >' + name + '</li>');
+        //    }
+        //}
+        
+
+        $('button#searchUser').click(function () {
+            var name = $("#story").val();
+            if (name != null) {
+                if ($("li[id=" + name + "]").length > 0) {
+                    var count = $("li[id=" + name + "] span").text();
+                    
+                    $("#chatroom ul").append('<li id="' + name + '" class="user" >' + count + '</li>');
+                } else {
+                    $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("GetUser", "Account")",
+                        data: "userName=" + $("#story").text(),
+                        success: function (data) {
+                            $("#chatroom ul").empty();
+                            if (data == false)
+                                $("#chatroom ul").append('<li>Пользователя с таким именем не найдено.</li>');
+                            else {
+                                $("#chatroom ul").append('<li id="' + $("#story").text() + '" class="user" >0</li>');
+                            }
+                    }
+                });
+                }
+                
+            }
+        });
+    </script>
+
+}
+
+
