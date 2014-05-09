@@ -3,10 +3,10 @@
            {
                foreach (var x in Model)
                {
-                   <li id="@x.Key"><strong>@x.Key</strong>  <span>@x.Value</span></li>
+                   <li id="@x.Key"><a href="/Message/ShowDialog?userName=@x.Key" >@x.Key<span class="badge">@x.Value</span></a></li>
                }
            }
            else
            {
-                <span> У вас нет ни одного диалога.</span>
+                <li class="alert alert-warning"> У вас нет ни одного диалога.</li>
            }

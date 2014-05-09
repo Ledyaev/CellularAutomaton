@@ -2,26 +2,52 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using CellularAutomaton.Services.Interfaces;
 using CellularAutomaton.Web.Models;
 using CellularAutomaton.Domain;
 using CellularAutomaton.Web.Scripts;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.Identity;
+using Ninject;
 
 namespace CellularAutomaton.Web.Hubs
 {
     public class ChatHub : Hub
     {
         static List<ChatUser> Users = new List<ChatUser>();
+        [Inject]
+        public IMessageService messageService { get; set; }
+        [Inject]
+        public IUserService userService { get; set; }
 
-        private string username;
-        public ChatHub()
-        {
-            int x = 1;
-        }
+        //public ChatHub(IMessageService messageService, IUserService userService)
+        //{
+        //    this.userService = userService;
+        //    this.messageService = messageService;
+        //}
         // Отправка сообщений
-        public void Send(string name, string message)
+        public void Send(string from ,string to, string text)
         {
-            Clients.All.addMessage(name, message);
+            var userFrom = userService.Get(user => user.UserName == from, null, "").First();
+            var userFromId = Users.FirstOrDefault(x => x.UserName == from);
+            var userToId = Users.FirstOrDefault(x => x.UserName == to);
+            var userTo = userService.Get(user => user.UserName == to, null, "").First();
+            var message = new Message()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Text = text,
+                CreationDate = DateTime.Now,
+                IsRead = false,
+                Sender = userFrom,
+                Recipient = userTo
+            };
+            messageService.Insert(message);
+            messageService.Save();
+            Clients.Caller.addMessage(from, text);
+            Clients.Client(userToId.ConnectionId).addMessage(from, text);
+            Clients.Client(userToId.ConnectionId).updateDialogs(from);
+            Clients.Client(userToId.ConnectionId).updateUnreadMessages();
+            //Clients.All.addMessage(name, message);
         }
 
         // Подключение нового пользователя
@@ -46,8 +72,8 @@ namespace CellularAutomaton.Web.Hubs
             if (item != null)
             {
                 Users.Remove(item);
-                var id = Context.ConnectionId;
-                Clients.All.onUserDisconnected(id, item.UserName);
+                //var id = Context.ConnectionId;
+                //Clients.All.onUserDisconnected(id, item.UserName);
             }
 
             return base.OnDisconnected();

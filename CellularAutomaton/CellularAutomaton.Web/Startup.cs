@@ -1,4 +1,5 @@
 ﻿using System.Web.Configuration;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
 using Owin;

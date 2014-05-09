@@ -207,6 +207,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ChatUser.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="SignalRNinjectDepencyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resourses\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -234,6 +235,7 @@
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\datetime-format.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Scripts\jquery-2.1.0.min.map" />
@@ -276,9 +278,10 @@
     <Content Include="Views\Emails\RegEmail.cshtml" />
     <Content Include="Views\Account\RegisterStepTwo.cshtml" />
     <Content Include="Views\Account\RegisterConfirmation.cshtml" />
-    <Content Include="Views\Message\ChatRoom.cshtml" />
+    <Content Include="Views\Message\ShowDialog.cshtml" />
     <Content Include="Views\Message\MyMessages.cshtml" />
     <Content Include="Views\Message\_ShowDialogsPartial.cshtml" />
+    <Content Include="Views\Message\Messages_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

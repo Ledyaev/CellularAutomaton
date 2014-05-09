@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title – приложение ASP.NET</title>
@@ -26,13 +26,13 @@
                     <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li><a href="@Url.Action("MyMessages","Message")">Сообщения <span class="badge">@Html.Action("UnreadMessages","Account")</span></a></li>
+                        <li>@Html.ActionLink("О программе", "MyMessages", "Message")</li>
                     }
                     <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">@Resource.Theme<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink(Resource.Light, "ChangeTheme", "Home", new{ theme= "light.css" },null)</li>
+                            <li>@Html.ActionLink(Resource.Light, "ChangeTheme", "Home", new { theme = "light.css" }, null)</li>
                             <li>@Html.ActionLink(Resource.Dark, "ChangeTheme", "Home", new { theme = "dark.css" }, null)</li>
                         </ul>
                     </li>
@@ -58,47 +58,27 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/signalR")
-    @RenderSection("scripts", required: false)
-    
-    @if (User.Identity.IsAuthenticated)
-    {
-        <!--Ссылка на библиотеку SignalR -->
-        <script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
     <!--Ссылка на автоматически сгенерированный скрипт хаба SignalR -->
-        <script src="~/signalr/hubs"></script>
-        <script src="~/Scripts/datetime-format.js"></script>
-        <script>
-
+    <script src="~/signalr/hubs"></script>
+    <script type="text/javascript">
     var chat = $.connection.chatHub;
     // Объявление функции, которая хаб вызывает при получении сообщений
     //chat.client.addMessage = function (name, message) {
     //    // Добавление сообщений на веб-страницу
     //    $('#chatroom ul').append('<li><strong>' + htmlEncode(name)
     //        + '</strong>: ' + htmlEncode(message) + '</li>');
-            //};
-    $.connection.hub.start().done(function () {
-
-        $('#sendmessage').click(function () {
-            // Вызываем у хаба метод Send
-            chat.server.send("@User.Identity.Name",$('#hdUserName').val(), $('#message').val());
-            $('#message').val('');
-        });
-
-        // обработка логина
-        $(document).ready(function () {
-            chat.server.connect("@User.Identity.Name");
-        });
-    });
-    
+    //};
     chat.client.addMessage = function (name, message) {
         // Добавление сообщений на веб-страницу
         var now = new Date();
         var formatedDate = now.format("yyyy-mm-dd");
-        $('#chatroom ul').append('<li class="media alert-info"><div class="media-body"><h4 class="media-heading">'
-            + name + '<span class="pull-right">' + formatedDate + '</span></h4><div>' + message + '</div></div></li>');
+        $('#chatroom ul').append('<li class="media">' +
+            +'<div class="media-body">' +
+            +'<h4 class="media-heading">' + name + '<span class="pull-right">' + formatedDate + '</span></h4>' +
+                                +'<div>' + message + '</div></div></li>');
     };
-
+    
     chat.client.updateDialogs = function (name) {
         // Добавление сообщений на веб-страницу
         var li = $("li[id=" + name + "]");
@@ -110,8 +90,8 @@
             $("#chatroom ul").prepend(li);
         }
     };
-
-    chat.client.updateUnreadMessages = function () {
+    
+    chat.client.updateUnreadMessages = function (name) {
         // Добавление сообщений на веб-страницу
         var li = $("li[id=" + name + "]");
         if (li.length > 0) {
@@ -123,13 +103,25 @@
         }
     };
 
-    @*// Функция, вызываемая при подключении нового пользователя
+    // Функция, вызываемая при подключении нового пользователя
     chat.client.onConnected = function (id, userName, allUsers) {
 
         $('#header').html('<h3>Добро пожаловать, ' + @User.Identity.Name + '</h3>');
-    };*@
+    };
     // Открываем соединение
+    $.connection.hub.start().done(function () {
 
+        $('#sendmessage').click(function () {
+            // Вызываем у хаба метод Send
+            chat.server.send($('#hdUserName').val(), $('#message').val());
+            $('#message').val('');
+        });
+
+        // обработка логина
+        $(document).ready(function () {
+            chat.server.connect("@User.Identity.Name");
+        });
+    });
     // Кодирование тегов
     function htmlEncode(value) {
         var encodedValue = $('<div />').text(value).html();
@@ -154,7 +146,8 @@
                         if (data == false)
                             $("#chatroom ul").append('<li class="alert alert-warning">Пользователя с таким именем не найдено.</li>');
                         else {
-                            $("#chatroom ul").append('<li id="' + $("#story").val() + '"><a href="/Message/ShowDialog?userName=' + $("#story").val() + '" >'+ $("#story").val() + '<span class="badge">0</span></a></li>');
+                            var href = '@Url.Action("ShowDialog","Message",new {userName="sdf"})';
+                            $("#chatroom ul").append('<li id="' + $("#story").val() + '"><a href="/Message/ShowDialog?userName=' + $("#story").val() + '" ><span id="#senderName">' + $("#story").val() + '</span><span class="badge">0</span></a></li>');
                         }
                     }
                 });
@@ -162,7 +155,6 @@
 
         }
     });
-        </script>
-    }
+    </script>
 </body>
 </html>

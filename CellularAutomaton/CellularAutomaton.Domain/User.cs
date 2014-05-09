@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CellularAutomaton.Domain
@@ -16,9 +17,11 @@ namespace CellularAutomaton.Domain
 
         public string ConfirmationToken { get; set; }
 
+        [JsonIgnore]
         [InverseProperty("Recipient")]
         public virtual List<Message> IncomingMessages { get; set; }
 
+        [JsonIgnore]
         [InverseProperty("Sender")]
         public virtual List<Message> OutgoingMessages { get; set; }
     }

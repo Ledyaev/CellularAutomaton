@@ -1,0 +1,40 @@
+﻿@model   IEnumerable<CellularAutomaton.Domain.Message>
+@{
+    ViewBag.Title = String.Format("Диалог с пользователем: {0}",ViewBag.UserName);
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="container">
+    <div class="bg-success col-md-6 col-md-offset-3">
+        <div id="chatBody">
+            <div id="header"></div>
+            <div id="inputForm">
+                <input type="text" id="message" />
+                <input type="button" id="sendmessage" value="Отправить" />
+            </div>
+            <input id="hdUserName" type="hidden" value="@ViewBag.UserName" />
+            <div id="chatroom">
+                <ul>
+                    @if (Model.Any())
+                    {
+                        foreach (var message in Model)
+                        {
+                            <li class="media">
+                                <div class="media-body">
+                                    <h4 class="media-heading">@message.Sender.UserName <span class="pull-right">@message.CreationDate.ToString("g")</span></h4>       
+                                    <div>
+                                        @message.Text
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

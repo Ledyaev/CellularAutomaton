@@ -75,7 +75,13 @@ namespace CellularAutomaton.Web.Controllers
         public ActionResult GetUser(string userName)
         {
             var user =  UserManager.FindByName(userName);
-            return Json(user == null ? false : true, JsonRequestBehavior.AllowGet);
+            return Json(user != null, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UnreadMessages()
+        {
+            var user = UserManager.FindByName(User.Identity.Name);
+            return Content(user.IncomingMessages.Count(m => m.IsRead == false).ToString());
         }
 
 
@@ -155,7 +161,11 @@ namespace CellularAutomaton.Web.Controllers
             {
                 ViewBag.IsConfirmed = true;
             }
-            ViewBag.IsConfirmed = false;
+            else
+            {
+                ViewBag.IsConfirmed = false;
+            }
+            
             return View();
         }
 

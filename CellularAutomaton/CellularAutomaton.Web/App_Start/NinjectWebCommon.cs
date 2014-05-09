@@ -6,8 +6,10 @@ using CellularAutomaton.Repositories.Interfaces;
 using CellularAutomaton.Services;
 using CellularAutomaton.Services.Interfaces;
 using CellularAutomaton.UnitOfWork.Interfaces;
+using CellularAutomaton.Web.Hubs;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.SignalR;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(CellularAutomaton.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(CellularAutomaton.Web.App_Start.NinjectWebCommon), "Stop")]
@@ -55,7 +57,7 @@ namespace CellularAutomaton.Web.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-
+                GlobalHost.DependencyResolver=new SignalRNinjectDependencyResolver(kernel);
                 RegisterServices(kernel);
                 return kernel;
             }
@@ -83,6 +85,7 @@ namespace CellularAutomaton.Web.App_Start
             kernel.Bind<IUnitOfWork>().To<UnitOfWork.UnitOfWork>();
             kernel.Bind<IUserService>().To<UserService>();
             kernel.Bind<IMessageService>().To<MessageService>();
+            //kernel.Bind<ChatHub>().ToSelf().WithConstructorArgument("messageService", new MessageService(new UnitOfWork.UnitOfWork(new GenericRepository<Message>())));
         }        
     }
 }
