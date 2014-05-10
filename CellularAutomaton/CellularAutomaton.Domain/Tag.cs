@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace CellularAutomaton.Domain
 {
-    public class Entity: IEntity
+    public class Tag: IEntity
     {
-        string IEntity.Id { get; set; }
+        public string Id { get; set; }
+
+        public string Name { get; set; }
+
+        public virtual List<Automaton> Automatons { get; set; }
     }
 }

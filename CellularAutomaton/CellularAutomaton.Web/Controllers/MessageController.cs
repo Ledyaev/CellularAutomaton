@@ -7,17 +7,14 @@ using CellularAutomaton.Services.Interfaces;
 using CellularAutomaton.Domain;
 using CellularAutomaton.Web.Models;
 using Microsoft.AspNet.Identity;
+using Ninject;
 
 namespace CellularAutomaton.Web.Controllers
 {
     public class MessageController : Controller
     {
-        public MessageController(IMessageService messageService)
-        {
-            this.MessageService = messageService;
-        }
 
-
+        [Inject]
         public IMessageService MessageService { get; set; }
 
         public ActionResult MyMessages()
@@ -30,22 +27,40 @@ namespace CellularAutomaton.Web.Controllers
         public ActionResult ShowDialogs()
         {
             var uId = User.Identity.GetUserId();
-            var incomingMessages = MessageService.Get(m => m.Recipient.Id == uId || m.Sender.Id == uId, null, "").OrderByDescending(a => a.CreationDate);
+            var messages = MessageService.Get(m => m.Recipient.Id == uId || m.Sender.Id == uId, null, "").OrderByDescending(a => a.CreationDate);
             var dialogs = new Dictionary<String, int>();
-            foreach (var message in incomingMessages)
+            foreach (var message in messages)
             {
-                if (message.Sender.Id == uId)
+                if (message.Sender.Id != uId)
                 {
-                    
-                }
-                if (dialogs.ContainsKey(message.Sender.UserName))
-                {
-                    dialogs[message.Sender.UserName]++;
+                    if (message.IsRead == false)
+                    {
+                        if (dialogs.ContainsKey(message.Sender.UserName))
+                        {
+
+                            dialogs[message.Sender.UserName]++;
+                        }
+                        else
+                        {
+                            dialogs.Add(message.Sender.UserName, 1);
+                        }
+                    }
+                    else
+                    {
+                        if (!dialogs.ContainsKey(message.Sender.UserName))
+                        {
+                            dialogs.Add(message.Sender.UserName, 0);
+                        }
+                    }
                 }
                 else
                 {
-                    dialogs.Add(message.Sender.UserName, 1);
+                    if (!dialogs.ContainsKey(message.Recipient.UserName))
+                    {
+                        dialogs.Add(message.Recipient.UserName, 0);
+                    }
                 }
+                
             }
             return PartialView( "_ShowDialogsPartial",dialogs);
         }
@@ -56,15 +71,15 @@ namespace CellularAutomaton.Web.Controllers
             var messages = MessageService
                 .Get(m => (m.Recipient.Id == uId && m.Sender.UserName == userName) || (m.Sender.Id == uId && m.Recipient.UserName == userName), null, "").
                 OrderByDescending(a => a.CreationDate);
-            foreach (var message in messages)
-            {
-                if (message.Recipient.Id == uId && message.IsRead == false)
-                {
-                    message.IsRead = true;
-                    MessageService.Update(message);
-                }
-            }
-            MessageService.Save();
+            //foreach (var message in messages)
+            //{
+            //    if (message.Recipient.Id == uId && message.IsRead == false)
+            //    {
+            //        message.IsRead = true;
+            //        MessageService.Update(message);
+            //    }
+            //}
+            //MessageService.Save();
             ViewBag.UserName = userName;
             return View("ShowDialog", messages);
         }

@@ -67,3 +67,104 @@ overflow-x: scroll;
 .playArea{
     width:;
 }
+
+.dialog-message {
+    margin-bottom: 3px;
+}
+
+/*#lifejs {
+  position: relative;
+  width: 500px;
+	float: left;
+	margin: 0 10px 10px 0;
+}*/
+#frame {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
+  border: 1px solid #888;
+  padding: 0;
+}
+#field {
+  position: absolute;
+  width: 1000px;
+  height: 1000px;
+  top: -200px;
+  left: -100px;
+}
+#evcap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+#frame, #field, #evcap {
+  cursor: default;
+}
+/* Toolbar */
+/*#toolbar {
+  width: 500px;
+  height: 36px;
+  overflow: hidden;
+  background: #D8D8D8;
+  margin: 1px;
+}
+#toolbar a, #toolbar span, #toolbar div {
+  display: block;
+  height: 32px;
+  margin: 2px;
+  float: left;
+}
+#toolbar .sep {
+  width: 8px;
+}
+#toolbar #info {
+  width: 90px;
+  overflow: hidden;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10pt;
+  padding: 1px;
+  border: 1px solid;
+  border-left-color: #C0C0C0;
+  border-top-color: #C0C0C0;
+  border-right-color: #FFF;
+  border-bottom-color: #FFF;
+}
+#toolbar a {
+  width: 32px;
+  background: url('/img/lifejs/tbbuttons.gif') no-repeat;
+}*/
+
+/*#toolbar #tbStep:link, #toolbar #tbStep:visited { background-position: 0 0; }
+#toolbar #tbStep:hover, #toolbar #tbStep:active { background-position: 0 -32px; }
+
+#toolbar #tbStart:link, #toolbar #tbStart:visited { background-position: -32px 0; }
+#toolbar #tbStart:hover, #toolbar #tbStart:active { background-position: -32px -32px; }
+#toolbar #tbStart.active { background-position: -32px -64px; }
+
+#toolbar #tbStop:link, #toolbar #tbStop:visited { background-position: -64px 0; }
+#toolbar #tbStop:hover, #toolbar #tbStop:active { background-position: -64px -32px; }
+
+#toolbar #tbZoomIn:link, #toolbar #tbZoomIn:visited { background-position: -224px 0; }
+#toolbar #tbZoomIn:hover, #toolbar #tbZoomIn:active { background-position: -224px -32px; }
+
+#toolbar #tbZoomOut:link, #toolbar #tbZoomOut:visited { background-position: -256px 0; }
+#toolbar #tbZoomOut:hover, #toolbar #tbZoomOut:active { background-position: -256px -32px; }
+
+#toolbar #tbCenter:link, #toolbar #tbCenter:visited { background-position: -96px 0; }
+#toolbar #tbCenter:hover, #toolbar #tbCenter:active { background-position: -96px -32px; }
+
+#toolbar #tbReset:link, #toolbar #tbReset:visited { background-position: -128px 0; }
+#toolbar #tbReset:hover, #toolbar #tbReset:active { background-position: -128px -32px; }
+
+#toolbar #tbRecord:link, #toolbar #tbRecord:visited { background-position: -160px 0; }
+#toolbar #tbRecord:hover, #toolbar #tbRecord:active { background-position: -160px -32px; }
+#toolbar #tbRecord.active { background-position: -160px -64px; }
+
+#toolbar #tbGetImage.disabled { display: none; }
+#toolbar #tbGetImage:link, #toolbar #tbGetImage:visited { background-position: -192px 0; }
+#toolbar #tbGetImage:hover, #toolbar #tbGetImage:active { background-position: -192px -32px; }*/
+

@@ -16,6 +16,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Ninject;
 using Microsoft.Owin;
 using Postal;
 using Resources;
@@ -27,6 +28,9 @@ namespace CellularAutomaton.Web.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        [Inject]
+        public IUserService UserService { get; set; }
+
         public AccountController(IUserStore<User> userStore)
         {
             UserManager = new UserManager<User>(userStore);
@@ -80,7 +84,7 @@ namespace CellularAutomaton.Web.Controllers
 
         public ActionResult UnreadMessages()
         {
-            var user = UserManager.FindByName(User.Identity.Name);
+            var user = UserService.GetById(User.Identity.GetUserId());
             return Content(user.IncomingMessages.Count(m => m.IsRead == false).ToString());
         }
 

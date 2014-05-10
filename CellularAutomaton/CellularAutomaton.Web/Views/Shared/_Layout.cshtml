@@ -26,9 +26,9 @@
                     <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li><a href="@Url.Action("MyMessages","Message")">Сообщения <span class="badge">@Html.Action("UnreadMessages","Account")</span></a></li>
+                        <li><a id="myMessages" href="@Url.Action("MyMessages","Message")">Сообщения <span class="badge">@Html.Action("UnreadMessages","Account")</span></a></li>
                     }
-                    <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Автомат", "ShowAutomatons", "Automaton")</li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">@Resource.Theme<b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -76,13 +76,19 @@
     //    // Добавление сообщений на веб-страницу
     //    $('#chatroom ul').append('<li><strong>' + htmlEncode(name)
     //        + '</strong>: ' + htmlEncode(message) + '</li>');
-            //};
+    //};
     $.connection.hub.start().done(function () {
 
         $('#sendmessage').click(function () {
             // Вызываем у хаба метод Send
-            chat.server.send("@User.Identity.Name",$('#hdUserName').val(), $('#message').val());
+            chat.server.send("@User.Identity.Name", $('#hdUserName').val(), $('#message').val());
             $('#message').val('');
+        });
+
+        $('.panel-warning').click(function() {
+            $(this).removeClass("panel-warning");
+            $(this).addClass("panel-primary");
+            chat.server.readMessage($("input",this).val());
         });
 
         // обработка логина
@@ -90,38 +96,50 @@
             chat.server.connect("@User.Identity.Name");
         });
     });
-    
-    chat.client.addMessage = function (name, message) {
+
+
+
+    chat.client.addMessage = function (name, message,id) {
         // Добавление сообщений на веб-страницу
         var now = new Date();
-        var formatedDate = now.format("yyyy-mm-dd");
-        $('#chatroom ul').append('<li class="media alert-info"><div class="media-body"><h4 class="media-heading">'
-            + name + '<span class="pull-right">' + formatedDate + '</span></h4><div>' + message + '</div></div></li>');
+        var formatedDate = now.format("dd.mm.yyyy HH:MM");
+        var isOwnMessage = name == "@User.Identity.Name";
+        $('#chatroom ').prepend('<div class="panel panel-'+(isOwnMessage?"primary":"warning")+'"><input id="messageId" type="hidden" value="'+id+'" /><div class="panel-heading">'+name + '<span class="pull-right">' +formatedDate + '</span></div><div class="panel-body">' +message + '</div></div>');
+        
+    };
+
+
+    chat.client.readMessages = function() {
+        $(".panel-warning").removeClass("panel-warning").addClass("panel-primary");
     };
 
     chat.client.updateDialogs = function (name) {
         // Добавление сообщений на веб-страницу
-        var li = $("li[id=" + name + "]");
+        var li = $("#dialogs li[id=" + name + "]");
         if (li.length > 0) {
-            var count = $("li[id=" + name + "] span.badge").text();
-            count =Number(count)+1;
-            $("li[id=" + name + "] span.badge").text(count);
+            var count = $("#dialogs li[id=" + name + "] span.badge").text();
+            count = Number(count) + 1;
+            $("#dialogs li[id=" + name + "] span.badge").text(count);
             li.remove();
-            $("#chatroom ul").prepend(li);
+            $("#dialogs ul").prepend(li);
+        } else {
+            $("#dialogs ul").prepend(' <li id="'+name+'"><a href="/Message/ShowDialog?userName='+name+'" >'+name+'<span class="badge">'+1+'</span></a></li>');
         }
     };
 
-    chat.client.updateUnreadMessages = function () {
-        // Добавление сообщений на веб-страницу
-        var li = $("li[id=" + name + "]");
-        if (li.length > 0) {
-            var count = $("li[id=" + name + "] span.badge").text();
-            count = Number(count) + 1;
-            $("li[id=" + name + "] span.badge").text(count);
-            li.remove();
-            $("#chatroom ul").prepend(li);
+    chat.client.updateUnreadMessages = function (readMessagesCount) {
+        if ($("#myMessages").length > 0) {
+            var count = $("#myMessages span.badge").text();
+            count = Number(count) + readMessagesCount;
+            $("#myMessages span.badge").text(count);
         }
     };
+    
+    $.connection.hub.disconnected(function () {
+        setTimeout(function () {
+            $.connection.hub.start();
+        }, 5000); // Restart connection after 5 seconds.
+    });
 
     @*// Функция, вызываемая при подключении нового пользователя
     chat.client.onConnected = function (id, userName, allUsers) {
@@ -142,19 +160,19 @@
         if (name != null) {
             if ($("li[id=" + name + "]").length > 0) {
                 var ul = $("li[id=" + name + "]");
-                $("#chatroom ul").empty();
-                $("#chatroom ul").append(ul);
+                $("#dialogs ul").empty();
+                $("#dialogs ul").append(ul);
             } else {
                 $.ajax({
                     type: "GET",
                     url: "@Url.Action("GetUser", "Account")",
                     data: "userName=" + $("#story").val(),
                     success: function (data) {
-                        $("#chatroom ul").empty();
+                        $("#dialogs ul").empty();
                         if (data == false)
-                            $("#chatroom ul").append('<li class="alert alert-warning">Пользователя с таким именем не найдено.</li>');
+                            $("#dialogs ul").append('<li class="alert alert-warning">Пользователя с таким именем не найдено.</li>');
                         else {
-                            $("#chatroom ul").append('<li id="' + $("#story").val() + '"><a href="/Message/ShowDialog?userName=' + $("#story").val() + '" >'+ $("#story").val() + '<span class="badge">0</span></a></li>');
+                            $("#dialogs ul").append('<li id="' + $("#story").val() + '"><a href="/Message/ShowDialog?userName=' + $("#story").val() + '" >' + $("#story").val() + '<span class="badge">0</span></a></li>');
                         }
                     }
                 });

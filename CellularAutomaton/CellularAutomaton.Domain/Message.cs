@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CellularAutomaton.Domain
 {
-    public class Message: Entity
+    public class Message: IEntity
     {
         public string Id { get; set; }
 

@@ -24,5 +24,7 @@ namespace CellularAutomaton.Domain
         [JsonIgnore]
         [InverseProperty("Sender")]
         public virtual List<Message> OutgoingMessages { get; set; }
+
+        public virtual List<Automaton> Automatons { get; set; } 
     }
 }

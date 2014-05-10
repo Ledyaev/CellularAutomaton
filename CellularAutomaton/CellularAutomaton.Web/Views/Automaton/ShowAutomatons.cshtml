@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+<div class="container-fluid">
+    <div class="row">
+        <div id="lifejs">
+            <div id="toolbar">
+                <span id="info"></span>
+                <a href="#" id="tbStep" class="btn btn-sm btn-default">Один шаг</a>
+                <a href="#" id="tbStart" class="btn btn-sm btn-default"> Запуск</a>
+                <a href="#" id="tbStop" class="btn btn-sm btn-default"> Стоп</a>
+                <a href="#" id="tbZoomOut" class="btn btn-sm btn-default">Уменьшить</a>
+                <a href="#" id="tbZoomIn" class="btn btn-sm btn-default">Увеличить</a>
+                <a href="#" id="tbCenter" class="btn btn-sm btn-default">По центру</a>
+                <a href="#" id="tbReset" class="btn btn-sm btn-default">Сброс</a>
+
+            </div>
+            <div class="row">
+                <div style="background-color: white; height: 500px; width: 500px">
+                    <div id="frame"><canvas id="field"></canvas><div id="evcap" title="Ctrl+drag для перемещения поля"></div></div>
+                </div>
+                <div class="panel panel-primary col-md-5">
+                    <div class="panel-heading">Правила</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="birth">Рождение</label>
+                                <div class="col-md-4">
+                                    <input class="form-control" id="birth" name="birth" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="loneliness">Одиночество</label>
+                                <div class="col-md-4">
+                                    <input class="form-control" id="loneliness" name="loneliness" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="overcrowding">Переполнение</label>
+                                <div class="col-md-4">
+                                    <input class="form-control" id="overcrowding" name="overcrowding" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <a href="#" id="tbApply" class="btn btn-sm btn-default">Применить правила</a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <button class="btn btn-sm btn-primary" id="tbSaveModal" data-toggle="modal" data-target="bs-example-modal-sm">Сохранить</button>
+                                    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+                                        <div class="modal-dialog modal-sm">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    <h4 class="modal-title" id="mySmallModalLabel">Сохранение</h4>
+                                                </div>
+                                                <div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label" for="discription">Описание</label>
+                                                            <div class="col-md-4">
+                                                                <input class="form-control" id="discription" name="discription" type="text" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-md-offset-2 col-md-4">
+                                                                <button class="btn btn-sm btn-primary" id="tbSave">Сохранить</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            
+
+            
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/l.js"></script>
+    <script>
+        $(function () { LifeGame.init(); });
+    </script>
+}
