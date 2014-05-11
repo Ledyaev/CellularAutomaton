@@ -15,10 +15,12 @@ namespace CellularAutomaton.UnitOfWork
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
 
-        public UnitOfWork(IRepository<User> usersRepository, IRepository<Message> messagesRepository, IContext context)
+        public UnitOfWork(IRepository<User> usersRepository, IRepository<Message> messagesRepository,IRepository<Tag> tagsRepository,IRepository<Automaton> automatonRepository, IContext context)
         {
             this.UsersRepository = usersRepository;
             this.MessagesRepository = messagesRepository;
+            TagsRepository = tagsRepository;
+            AutomatonsRepository = automatonRepository;
             this.context = context;
         }
 
@@ -28,6 +30,10 @@ namespace CellularAutomaton.UnitOfWork
 
 
         public IRepository<Message> MessagesRepository { get; private set; }
+
+        public IRepository<Automaton> AutomatonsRepository { get; private set; }
+
+        public IRepository<Tag> TagsRepository { get; private set; }
 
         public void Save()
         {

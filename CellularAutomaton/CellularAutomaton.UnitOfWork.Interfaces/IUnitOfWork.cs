@@ -12,7 +12,11 @@ namespace CellularAutomaton.UnitOfWork.Interfaces
     {
         IRepository<User> UsersRepository { get; }
 
-        IRepository<Message> MessagesRepository { get; } 
+        IRepository<Message> MessagesRepository { get; }
+
+        IRepository<Automaton> AutomatonsRepository { get; }
+
+        IRepository<Tag> TagsRepository { get; } 
 
         void Save();
     }

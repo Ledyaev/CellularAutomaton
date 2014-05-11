@@ -20,5 +20,9 @@ namespace CellularAutomaton.Context
         }
 
         public DbSet<Message> Messages { get; set; }
+
+        public DbSet<Automaton> Automatons { get; set; }
+
+        public DbSet<Tag> Tags { get; set; }
     }
 }

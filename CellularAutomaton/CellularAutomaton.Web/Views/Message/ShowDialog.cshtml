@@ -19,7 +19,7 @@
                     {
                         foreach (var message in Model)
                         {
-                            <div class="panel dialog-message panel-@(message.Sender.UserName==ViewBag.UserName?message.IsRead?"primary":"warning":"primary")">
+                            <div id="message" class="panel dialog-message panel-@(message.Sender.UserName==ViewBag.UserName?message.IsRead?"primary":"warning":"primary")">
                                 <input id="messageId" type="hidden" value="@message.Id" />
                                 <div class="panel-heading">@message.Sender.UserName <span class="pull-right">@message.CreationDate.ToString("g")</span></div>
                                 <div class="panel-body">

@@ -13,8 +13,6 @@ namespace CellularAutomaton.Domain
     {
         public override string Id { get; set; }
 
-        public string NickName { get; set; }
-
         public string ConfirmationToken { get; set; }
 
         [JsonIgnore]

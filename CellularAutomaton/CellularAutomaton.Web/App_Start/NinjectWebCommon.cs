@@ -74,18 +74,17 @@ namespace CellularAutomaton.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            
-            //kernel.Bind<IContext>().To<CellularAutomatonContext>().InRequestScope();
             kernel.Bind<IUserStore<User>>().To<UserStore<User>>().WithConstructorArgument("context", new CellularAutomatonContext());
-            //kernel.Rebind<ModelValidatorProvider>().To<AttributeValidatorProvider>()
             kernel.Bind<IContext>().To<CellularAutomatonContext>().InSingletonScope();
             kernel.Bind<IRepository<User>>().To<GenericRepository<User>>().InSingletonScope();
             kernel.Bind<IRepository<Message>>().To<GenericRepository<Message>>().InSingletonScope();
-            //kernel.Bind<IRepository<Message>>().To<GenericRepository<Message>>().InSingletonScope();
+            kernel.Bind<IRepository<Automaton>>().To<GenericRepository<Automaton>>().InSingletonScope();
+            kernel.Bind<IRepository<Tag>>().To<GenericRepository<Tag>>().InSingletonScope();
             kernel.Bind<IUnitOfWork>().To<UnitOfWork.UnitOfWork>();
             kernel.Bind<IUserService>().To<UserService>();
             kernel.Bind<IMessageService>().To<MessageService>();
-            //kernel.Bind<ChatHub>().ToSelf().WithConstructorArgument("messageService", new MessageService(new UnitOfWork.UnitOfWork(new GenericRepository<Message>())));
+            kernel.Bind<IAutomatonService>().To<AutomatonService>();
+            kernel.Bind<ITagService>().To<TagService>();
         }        
     }
 }

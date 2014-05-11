@@ -1,0 +1,27 @@
+﻿@model  IEnumerable<CellularAutomaton.Domain.Automaton>
+
+<ul class="list-group">
+    @foreach (var automaton in Model)
+    {
+
+        <li class="list-group-item">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    @automaton.Name
+                    <span class="pull-right">@automaton.CreationDate.ToString("g")</span>
+                    <span class="pull-right">Автор: @Html.ActionLink(automaton.Creator.UserName, "UserAutomatons", "Automaton", new { id = automaton.Creator.Id }, null)&nbsp;</span>
+                </div>
+                <div class="panel-body">
+                    @automaton.Discription
+                </div>
+                <div class="panel-footer">
+                    @foreach (var tag in automaton.Tags)
+                    {
+                        @Html.ActionLink(tag.Name, "AutomatonsSearch", "Automaton", new { @class = "badge" })
+                    }
+                    @Html.ActionLink("Перейти", "ShowAutomaton", "Automaton", new { id = automaton.Id }, new { @class = "btn btn-primary btn-sm pull-right" })
+                </div>
+            </div>
+        </li>
+    }
+</ul>

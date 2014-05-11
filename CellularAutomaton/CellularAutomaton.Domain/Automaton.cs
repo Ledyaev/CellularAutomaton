@@ -12,9 +12,13 @@ namespace CellularAutomaton.Domain
 
         public string Rules { get; set; }
 
+        public string Name { get; set; }
+
+        public DateTime CreationDate { get; set; }
+
         public string Area { get; set; }
 
-        public string Description { get; set; }
+        public string Discription { get; set; }
 
         public virtual List<Tag> Tags { get; set; }
 

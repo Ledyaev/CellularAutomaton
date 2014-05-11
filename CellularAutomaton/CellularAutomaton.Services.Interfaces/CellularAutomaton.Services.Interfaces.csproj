@@ -52,8 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAutomatonService.cs" />
     <Compile Include="IMessageService.cs" />
     <Compile Include="IService.cs" />
+    <Compile Include="ITagService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -116,7 +116,7 @@ var LifeGame = {
       }
     }
 
-    $('#info').html('Шаг:' + this.stepNo + '<br/>Фишек:' + dims.checkCount);
+    $('#info').html('Поколение:' + this.stepNo + '<br/>Живые клетки:' + dims.checkCount);
 
     if(!dims.checkCount)
       return false;
@@ -271,20 +271,26 @@ var LifeGame = {
   },
   
   save: function () {
-      var string = JSON.stringify(this.curGen);
+      var area = JSON.stringify(this.curGen);
       var rules = this.birth + " " + this.overcrowding + " " + this.loneliness;
       var discription = $("#discription").val();
+      var tags = $("#tags").val();
+      var name = $("#name").val();
       $.ajax({
           type: "POST",
           url: "/Automaton/Save",
-          data: "area=" + string+"&rules="+rules+"&discription="+discription,
+          data: "area=" + area+"&rules="+rules+"&discription="+discription+"&tags="+tags+"&name="+name,
       success: function (data) {
           $("#dialogs ul").empty();
           if (data == false) {
-              
+              alert("У вас уже есть данная конфигурация.");
           }
           else {
-              
+              $('#saveModal').modal('hide');
+              $("#discription").val("");
+              $("#name").val("");
+              $("#tags").val("");
+              alert("Конфигурация была успешно сохранена.");
           }
       }
   });
@@ -442,32 +448,44 @@ var LifeGame = {
   /*
     Init
   */
-  init: function()
+  init: function(area,birth, overcrowding,loneliness)
   {
-    // Bind handlers to controls
-    $('#tbStep').click(function() { LifeGame.stop(); LifeGame.step(); return false; });
-    $('#tbStart').click(function() { LifeGame.start(); return false; });
-    $('#tbStop').click(function() { LifeGame.stop(); return false; });
-    $('#tbZoomIn').click(function() { LifeGame.zoom(1); return false; });
-    $('#tbZoomOut').click(function() { LifeGame.zoom(-1); return false; });
-    $('#tbCenter').click(function() { LifeGame.center(); return false; });
-    $('#tbReset').click(function () { LifeGame.reset(true); return false; });
-    $('#tbApply').click(function () {
-        var b = $('#birth').val();
-        var o = $('#overcrowding').val();
-        var l = $('#loneliness').val();
-         LifeGame.applyRules(b, o, l); return false;
-    });
-    $('#tbSave').click(function () { LifeGame.save(); return false; });
+      if (area != "" && birth != "" && overcrowding != "" && loneliness != "") {
+          this.curGen = JSON.parse(area.replace(/&quot;/g, '"'));
+          this.birth = birth;
+          this.overcrowding = overcrowding;
+          this.loneliness = loneliness;
+      }
+      this.newInit();
+  },
+  
+  newInit: function () {
+      // Bind handlers to controls
+      $('#tbStep').click(function () { LifeGame.stop(); LifeGame.step(); return false; });
+      $('#tbStart').click(function () { LifeGame.start(); return false; });
+      $('#tbStop').click(function () { LifeGame.stop(); return false; });
+      $('#tbZoomIn').click(function () { LifeGame.zoom(1); return false; });
+      $('#tbZoomOut').click(function () { LifeGame.zoom(-1); return false; });
+      $('#tbCenter').click(function () { LifeGame.center(); return false; });
+      $('#tbReset').click(function () { LifeGame.reset(true); return false; });
+      $('#tbApply').click(function () {
+          var b = $('#birth').val();
+          var o = $('#overcrowding').val();
+          var l = $('#loneliness').val();
+          LifeGame.applyRules(b, o, l); return false;
+      });
+      $('#tbSave').click(function () { LifeGame.save(); return false; });
 
-    // Bind field mouse handlers
-    $('#evcap')[0].onmousedown = function(ev) { LifeGame.frameMouseDown(ev || window.event); }
-    $('#evcap')[0].onmouseup = function(ev) { LifeGame.frameMouseUp(ev || window.event); }
-    $('#evcap')[0].onmouseout = function(ev) { LifeGame.frameMouseUp(ev || window.event); }
-    $('#evcap')[0].onmousemove = function(ev) { LifeGame.frameMouseMove(ev || window.event); }
+      // Bind field mouse handlers
+      $('#evcap')[0].onmousedown = function (ev) { LifeGame.frameMouseDown(ev || window.event); }
+      $('#evcap')[0].onmouseup = function (ev) { LifeGame.frameMouseUp(ev || window.event); }
+      $('#evcap')[0].onmouseout = function (ev) { LifeGame.frameMouseUp(ev || window.event); }
+      $('#evcap')[0].onmousemove = function (ev) { LifeGame.frameMouseMove(ev || window.event); }
 
-    this.updateControls();
-    this.draw();
+      this.updateControls();
+      this.draw();
   }
+  
+  
 };
 

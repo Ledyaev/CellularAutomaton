@@ -34,10 +34,9 @@ namespace CellularAutomaton.Web.Controllers
         public AccountController(IUserStore<User> userStore)
         {
             UserManager = new UserManager<User>(userStore);
-           // UserService = userService;
         }
 
-        //private IUserService UserService { get; set; }
+
 
         public UserManager<User> UserManager { get; private set; }
 

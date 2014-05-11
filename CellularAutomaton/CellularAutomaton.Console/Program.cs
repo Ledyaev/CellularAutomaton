@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Data.Entity;
 using System.Threading.Tasks;
@@ -15,7 +16,9 @@ namespace CellularAutomaton.Console
     {
         static void Main(string[] args)
         {
-            var d = DateTime.Parse("10.05.2014 11:15");
+            var d = "asdflkjahs;dljkfha;klsehfk;aljefhncuiapoiseuhiopweiufcmahupsecm,ahiopoihesfhhhhjaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;sldkjf;laksjdfmcjkal;slkejfcmajkl;selfijcmajisepfoicjm,asjieopfcoijfajiopsefocijmasjieopfcoiajsemfcjioapsoeifjcmjaiospefoijaseieiseieieieieieieieieiieieieieiasofiuhaspoefihposiefhcmopaishefmcpoaisehfmc111111111111111111111111111111111111111111111111111111111111oiupoihpoihpoihpoiuhpoiumnpoaiuhsemncpoaiuhmf,cpoaihsm,fcophamsefc";
+            var c = "asdflkjahs;dljkfha;klsehfk;aljefhncuiapoiseuhiopweiufcmahupsecm,ahiopoihesfhhhhjaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;sldkjf;laksjdfmcjkal;slkejfcmajkl;selfijcmajisepfoicjm,asjieopfcoijfajiopsefocijmasjieopfcoiajsemfcjioapsoeifjcmjaiospefoijaseieiseieieieieieieieieiieieieieiasofiuhaspoefihposiefhcmopaishefmcpoaisehfmc111111111111111111111111111111111111111111111111111111111111oiupoihpoihpoihpoiuhpoiumnpoaiuhsemncpoaiuhmf,cpoaihsm,fcophamsefc";
+            var b = c.GetHashCode() == d.GetHashCode();
         }
     }
 }

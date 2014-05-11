@@ -206,8 +206,8 @@
     </Compile>
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AutomatonViewModel.cs" />
     <Compile Include="Models\ChatUser.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="SignalRNinjectDepencyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resourses\Resource.Designer.cs">
@@ -263,7 +263,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Automaton\ShowAutomatons.cshtml" />
+    <Content Include="Views\Automaton\ShowAutomaton.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -284,9 +284,15 @@
     <Content Include="Views\Message\MyMessages.cshtml" />
     <Content Include="Views\Message\_ShowDialogsPartial.cshtml" />
     <Content Include="Views\Message\Messages_Layout.cshtml" />
+    <Content Include="Views\Automaton\NewAutomaton.cshtml" />
+    <Content Include="Views\Automaton\_JustAddedPartial.cshtml" />
+    <Content Include="Views\Automaton\Galery.cshtml" />
+    <Content Include="Views\Automaton\UserAutomatons.cshtml" />
+    <Content Include="Views\Shared\_ShowUserAutomatonsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Automatons\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -23,12 +23,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Галерея", "Galery", "Automaton")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li><a id="myMessages" href="@Url.Action("MyMessages","Message")">Сообщения <span class="badge">@Html.Action("UnreadMessages","Account")</span></a></li>
                     }
-                    <li>@Html.ActionLink("Автомат", "ShowAutomatons", "Automaton")</li>
+                    <li>@Html.ActionLink("Новый автомат", "NewAutomaton", "Automaton")</li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">@Resource.Theme<b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -85,9 +85,8 @@
             $('#message').val('');
         });
 
-        $('.panel-warning').click(function() {
-            $(this).removeClass("panel-warning");
-            $(this).addClass("panel-primary");
+        $('#message').click(function () {
+            $(this).removeClass("panel-warning").addClass("panel-primary");
             chat.server.readMessage($("input",this).val());
         });
 
@@ -110,7 +109,7 @@
 
 
     chat.client.readMessages = function() {
-        $(".panel-warning").removeClass("panel-warning").addClass("panel-primary");
+        $("#message").removeClass("panel-warning").addClass("panel-primary");
     };
 
     chat.client.updateDialogs = function (name) {
@@ -177,7 +176,6 @@
                     }
                 });
             }
-
         }
     });
         </script>
