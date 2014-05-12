@@ -84,6 +84,14 @@
       <Project>{bc3158d1-56b0-47db-a1a6-26d8ae23e14c}</Project>
       <Name>CellularAutomaton.Repositories</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CellularAutomaton.Services.Interfaces\CellularAutomaton.Services.Interfaces.csproj">
+      <Project>{816d07cf-5086-49de-a919-8f506436977d}</Project>
+      <Name>CellularAutomaton.Services.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CellularAutomaton.Services\CellularAutomaton.Services.csproj">
+      <Project>{be01f6c0-3440-4a00-a299-a5d8d02209c3}</Project>
+      <Name>CellularAutomaton.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CellularAutomaton.UnitOfWork\CellularAutomaton.UnitOfWork.csproj">
       <Project>{3e68e1b6-7de0-4874-9d52-f5373fbbe31a}</Project>
       <Name>CellularAutomaton.UnitOfWork</Name>

@@ -23,7 +23,6 @@ using Resources;
 
 namespace CellularAutomaton.Web.Controllers
 {
-   // [RequireHttps]
     [Culture]
     [Authorize]
     public class AccountController : Controller

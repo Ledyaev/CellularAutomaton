@@ -7,12 +7,14 @@ using System.Web;
 using System.Web.Mvc;
 using CellularAutomaton.Domain;
 using CellularAutomaton.Services.Interfaces;
+using CellularAutomaton.Web.Filters;
 using CellularAutomaton.Web.Models;
 using Microsoft.AspNet.Identity;
 using Ninject;
 
 namespace CellularAutomaton.Web.Controllers
 {
+    [Culture]
     public class AutomatonController : Controller
     {
         [Inject]
@@ -63,8 +65,49 @@ namespace CellularAutomaton.Web.Controllers
             }
             TagService.Save();
             AutomatonService.Save();
+            Lucene.Lucene.AddUpdateLuceneIndex(new AutomatonViewModel(){Id = automaton.Id, Name = automaton.Name, Discription = automaton.Discription, Tags = tags});
+            return Json(automaton.Id, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Resave(string area, string rules, string discription, string tags, string name, string id)
+        {
+            var automaton = AutomatonService.GetById(id);
+            System.IO.File.Create(Server.MapPath(automaton.Area)).Close();
+            System.IO.File.WriteAllText(Server.MapPath(automaton.Area), area);
+            automaton.Name = name;
+            automaton.Discription = discription;
+            automaton.CreationDate = DateTime.Now;
+            automaton.Id = Guid.NewGuid().ToString();
+            automaton.Rules = rules;
+            AutomatonService.Delete(automaton);
+            AutomatonService.Save();
+            var tagsList = ParseTags(tags);
+            foreach (var tag in tagsList)
+            {
+                var foundTag = SearchTag(tag);
+                foundTag.Automatons.Add(automaton);
+                if (foundTag.Id == null)
+                {
+                    foundTag.Id = Guid.NewGuid().ToString();
+                    TagService.Insert(tag);
+                }
+                else
+                {
+                    TagService.Update(foundTag);
+                }
+            }
+            TagService.Save();
+            AutomatonService.Save();
             return Json(true, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Delete(string id)
+        {
+            var automaton = AutomatonService.GetById(id);
+            AutomatonService.Delete();
+        }
+
 
         public ActionResult ShowAutomaton(string id)
         {
@@ -80,7 +123,7 @@ namespace CellularAutomaton.Web.Controllers
                 CreationDate = automaton.CreationDate,
                 Area = System.IO.File.ReadAllText(Server.MapPath(automaton.Area)),
                 Discription = automaton.Discription,
-                Tags = automaton.Tags.Select(t => t.Name).ToList(),
+                Tags = automaton.Tags.Aggregate("", (current, tag) => String.Format("{0},{1}", current, tag.Name)),
                 CreatorName = automaton.Creator.UserName
             };
             return View(automatonModel);
@@ -90,39 +133,29 @@ namespace CellularAutomaton.Web.Controllers
         public ActionResult SearchByTag(string tag)
         {
             var findTag = TagService.Get(t => t.Name == tag, null, "").FirstOrDefault();
-            return View("asdf", findTag.Automatons);
+            if (findTag == null)
+                return HttpNotFound();
+            return View("SearchByTag", findTag);
+        }
+
+        [HttpPost]
+        public ActionResult Search(string criteria)
+        {
+            var automatonModels = Lucene.Lucene.Search(criteria);
+            var automatons = automatonModels.Select(automatonViewModel => AutomatonService.GetById(automatonViewModel.Id)).GroupBy(a=>a.Rules).ToList();
+            return View("Galery",automatons);
         }
 
         public ActionResult UserAutomatons(string id)
         {
             var user = UserService.GetById(id);
-            //List<Automaton> automatons=null;
-            //if (user != null)
-            //{
-            //    automatons = user.Automatons;
-            //}
             return View("UserAutomatons", user);
-        }
-
-        public ActionResult ShowAutomatons()
-        {
-            var automatons = AutomatonService.Get(null, q => q.OrderByDescending(a => a.CreationDate), "").ToList();
-            return PartialView("_JustAddedPartial",automatons);
         }
 
         public ActionResult Galery()
         {
-            return View();
-        }
-
-        public ActionResult JustAdded()
-        {
-            var automatons = AutomatonService.Get(null,q => q.OrderByDescending(a => a.CreationDate),"").ToList();
-            if (automatons.Count > 3)
-            {
-                automatons = automatons.Take(3).ToList();
-            }
-            return PartialView("_JustAddedPartial", automatons);
+            var automatons = AutomatonService.Get(null, q => q.OrderByDescending(a => a.CreationDate), "").GroupBy(a=>a.Rules).ToList();
+            return View(automatons);
         }
 
 

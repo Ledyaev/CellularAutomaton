@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using CellularAutomaton.Context;
 using CellularAutomaton.Context.Migrations;
 using CellularAutomaton.Domain;
+using CellularAutomaton.Services;
 
 namespace CellularAutomaton.Console
 {
@@ -16,9 +17,7 @@ namespace CellularAutomaton.Console
     {
         static void Main(string[] args)
         {
-            var d = "asdflkjahs;dljkfha;klsehfk;aljefhncuiapoiseuhiopweiufcmahupsecm,ahiopoihesfhhhhjaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;sldkjf;laksjdfmcjkal;slkejfcmajkl;selfijcmajisepfoicjm,asjieopfcoijfajiopsefocijmasjieopfcoiajsemfcjioapsoeifjcmjaiospefoijaseieiseieieieieieieieieiieieieieiasofiuhaspoefihposiefhcmopaishefmcpoaisehfmc111111111111111111111111111111111111111111111111111111111111oiupoihpoihpoihpoiuhpoiumnpoaiuhsemncpoaiuhmf,cpoaihsm,fcophamsefc";
-            var c = "asdflkjahs;dljkfha;klsehfk;aljefhncuiapoiseuhiopweiufcmahupsecm,ahiopoihesfhhhhjaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;sldkjf;laksjdfmcjkal;slkejfcmajkl;selfijcmajisepfoicjm,asjieopfcoijfajiopsefocijmasjieopfcoiajsemfcjioapsoeifjcmjaiospefoijaseieiseieieieieieieieieiieieieieiasofiuhaspoefihposiefhcmopaishefmcpoaisehfmc111111111111111111111111111111111111111111111111111111111111oiupoihpoihpoihpoiuhpoiumnpoaiuhsemncpoaiuhmf,cpoaihsm,fcophamsefc";
-            var b = c.GetHashCode() == d.GetHashCode();
+            //var As = new AutomatonService(new UnitOfWork.UnitOfWork());
         }
     }
 }

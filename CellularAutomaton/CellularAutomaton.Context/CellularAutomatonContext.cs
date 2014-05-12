@@ -24,5 +24,13 @@ namespace CellularAutomaton.Context
         public DbSet<Automaton> Automatons { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
+
+    //    protected override void OnModelCreating(DbModelBuilder modelBuilder)
+    //    {
+    ////        modelBuilder.Entity<Automaton>()
+    ////.HasMany(a => a.Tags)
+    ////.WithMany(t => t.Automatons).WillCascadeOnDelete(false);
+    //        //configure model with fluent API
+    //    }
     }
 }

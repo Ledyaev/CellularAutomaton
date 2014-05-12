@@ -183,8 +183,13 @@ var LifeGame = {
     if(this.recordOn && !this.lastRecorded)
       this.recordStep(this.lastCode != '' ? this.lastCode : this.stepCode());
 
+    var time = new Date().getTime();
     this.doStep();
-
+    time = new Date().getTime()- time;
+    if (time > 1000) {
+        this.stop();
+        alert('Расчет был остановлен, так как дальнейшее выполнение повлечет за собой замедление работы браузера.');
+    }
     var curCode = this.stepCode();
     if(this.recordOn)
     {
@@ -273,27 +278,53 @@ var LifeGame = {
   save: function () {
       var area = JSON.stringify(this.curGen);
       var rules = this.birth + " " + this.overcrowding + " " + this.loneliness;
-      var discription = $("#discription").val();
-      var tags = $("#tags").val();
-      var name = $("#name").val();
+      var discription = $("#saveAsDiscription").val();
+      var tags = $("#saveAsTags").val();
+      var name = $("#saveAsName").val();
       $.ajax({
           type: "POST",
           url: "/Automaton/Save",
           data: "area=" + area+"&rules="+rules+"&discription="+discription+"&tags="+tags+"&name="+name,
       success: function (data) {
-          $("#dialogs ul").empty();
+          //$("#dialogs ul").empty();
           if (data == false) {
               alert("У вас уже есть данная конфигурация.");
           }
           else {
               $('#saveModal').modal('hide');
-              $("#discription").val("");
+              $("#saveAsDiscription").val("");
               $("#name").val("");
-              $("#tags").val("");
+              $("#saveAsTags").val("");
               alert("Конфигурация была успешно сохранена.");
+              window.location = "/Automaton/ShowAutomaton/"+data;
           }
       }
   });
+  },
+  
+  resave: function () {
+      var area = JSON.stringify(this.curGen);
+      var rules = this.birth + " " + this.overcrowding + " " + this.loneliness;
+      var discription = $("#saveAsDiscription").val();
+      var tags = $("#saveAsTags").val();
+      var name = $("#saveAsName").val();
+      var id = $("#hdAutomatonId").val();
+      $.ajax({
+          type: "POST",
+          url: "/Automaton/Resave",
+          data: "area=" + area + "&rules=" + rules + "&discription=" + discription + "&tags=" + tags + "&name=" + name+"&id="+id,
+          success: function (data) {
+            //  $("#dialogs ul").empty();
+              if (data == true) {
+                  $('#saveModal').modal('hide');
+                  $("#saveAsDiscription").val("");
+                  $("#saveAsName").val("");
+                  $("#saveAsTags").val("");
+                  alert("Конфигурация была успешно пересохранена.");
+                  location.reload();
+              }
+          }
+      });
   },
 
   record: function()
@@ -474,7 +505,8 @@ var LifeGame = {
           var l = $('#loneliness').val();
           LifeGame.applyRules(b, o, l); return false;
       });
-      $('#tbSave').click(function () { LifeGame.save(); return false; });
+      $('#tbSaveAs').click(function () { LifeGame.save(); return false; });
+      $('#tbSave').click(function () { LifeGame.resave(); return false; });
 
       // Bind field mouse handlers
       $('#evcap')[0].onmousedown = function (ev) { LifeGame.frameMouseDown(ev || window.event); }

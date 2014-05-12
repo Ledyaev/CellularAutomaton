@@ -8,12 +8,3 @@
     <p>@Html.ActionLink("Создайте свой клеточный автомат!", "NewAutomaton", "Automaton", null, new { @class = "btn btn-primary btn-lg" })</p>
 </div>
 
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <div class="panel panel-default">
-            <div class="panel-heading">Недавно добавленные конфигурации</div>
-            @Html.Action("JustAdded","Automaton")
-        </div>
-    </div>
-    
-</div>

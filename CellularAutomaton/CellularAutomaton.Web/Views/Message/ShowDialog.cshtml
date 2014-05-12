@@ -6,11 +6,11 @@
 <h2>@ViewBag.Title</h2>
 
 <div class="container">
-    <div class="bg-success col-md-6 col-md-offset-3">
+    <div class="bg-primary col-md-6 col-md-offset-3">
         <div id="chatBody">
             <div id="header"></div>
             <div id="inputForm">
-                <input type="text" id="message" />
+                <input type="text" id="messageInput" />
                 <input type="button" id="sendmessage" value="Отправить" />
             </div>
             <input id="hdUserName" type="hidden" value="@ViewBag.UserName" />
@@ -19,7 +19,7 @@
                     {
                         foreach (var message in Model)
                         {
-                            <div id="message" class="panel dialog-message panel-@(message.Sender.UserName==ViewBag.UserName?message.IsRead?"primary":"warning":"primary")">
+                            <div  class="message panel dialog-message panel-@(message.Sender.UserName==ViewBag.UserName?message.IsRead?"primary":"warning":"primary")">
                                 <input id="messageId" type="hidden" value="@message.Id" />
                                 <div class="panel-heading">@message.Sender.UserName <span class="pull-right">@message.CreationDate.ToString("g")</span></div>
                                 <div class="panel-body">

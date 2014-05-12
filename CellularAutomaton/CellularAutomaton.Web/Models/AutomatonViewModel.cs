@@ -25,7 +25,7 @@ namespace CellularAutomaton.Web.Models
 
         public string Discription { get; set; }
 
-        public List<string> Tags { get; set; }
+        public string Tags { get; set; }
 
         public string CreatorName { get; set; }
     }

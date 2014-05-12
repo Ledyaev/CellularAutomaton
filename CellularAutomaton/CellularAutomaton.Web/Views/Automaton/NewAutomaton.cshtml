@@ -6,7 +6,7 @@
     <div class="row">
         <div id="lifejs" class="col-md-offset-3">
             <div id="toolbar">
-                <span id="info"></span>
+                <span id="info"></span><br/>
                 <a href="#" id="tbStep" class="btn btn-sm btn-default">Один шаг</a>
                 <a href="#" id="tbStart" class="btn btn-sm btn-default"> Запуск</a>
                 <a href="#" id="tbStop" class="btn btn-sm btn-default"> Стоп</a>
@@ -20,43 +20,33 @@
                 <div style="background-color: white; height: 500px; width: 500px">
                     <div id="frame"><canvas id="field"></canvas><div id="evcap" title="Ctrl+drag для перемещения поля"></div></div>
                 </div>
-                <div class="panel panel-primary col-md-8">
-                    <div class="panel-heading">Правила</div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label" for="birth">Рождение</label>
-                                <div class="col-md-4">
-                                    <input class="form-control" id="birth" name="birth" type="text" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label" for="loneliness">Одиночество</label>
-                                <div class="col-md-4">
-                                    <input class="form-control" id="loneliness" name="loneliness" type="text" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label" for="overcrowding">Переполнение</label>
-                                <div class="col-md-4">
-                                    <input class="form-control" id="overcrowding" name="overcrowding" type="text" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-4">
-                                    <a href="#" id="tbApply" class="btn btn-sm btn-default">Применить правила</a>
-                                </div>
-                            </div>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-4">
-                                        <button class="btn btn-sm btn-primary" id="tbSaveModal" data-toggle="modal" data-target="#saveModal">Сохранить</button>
+                <ul class="list-group col-md-6">
+                    <li class="bg-info list-group-item">
+                        Правила
+                    </li>
+                    <li class="list-group-item">
+                        <label class="control-label" for="birth">Рождение</label>
+                        <input class="form-control" id="birth" name="birth" type="text"  />
+                    </li>
+                    <li class="list-group-item">
+                        <label class=" control-label" for="loneliness">Одиночество</label>
+                        <input class="form-control" id="loneliness" name="loneliness" type="text"  />
+                    </li>
+                    <li class="list-group-item">
+                        <label class=" control-label" for="overcrowding">Переполнение</label>
+                        <input class="form-control" id="overcrowding" name="overcrowding" type="text"  />
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" id="tbApply" class="btn btn-sm btn-default">Применить правила</a>
+                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="list-group-item">
+                            <button class="btn btn-sm btn-primary " id="tbSaveModal" data-toggle="modal" data-target="#saveModal">Сохранить</button>
+                        </li>
 
-                                    </div>
-                                </div>
-                            }
-
+                    }
+                </ul>
                         </div>
                         <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
                             <div class="modal-dialog modal-sm">
@@ -68,19 +58,19 @@
                                     <div>
                                         <div class="modal-body">
                                             <div class="form-group">
-                                                <label class=" control-label" for="name">Название</label>
-                                                <input class="form-control" id="name" name="name" type="text" />
+                                                <label class=" control-label" for="saveAsName">Название</label>
+                                                <input class="form-control" id="saveAsName" name="saveAsName" type="text" />
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label" for="discription">Описание</label>
-                                                <textarea class="form-control" id="discription" name="discription" cols="39" rows="4"></textarea>
+                                                <label class="control-label" for="saveAsDiscription">Описание</label>
+                                                <textarea class="form-control" id="saveAsDiscription" name="saveAsDiscription" cols="39" rows="4"></textarea>
                                             </div>
                                             <div class="form-group">
-                                                <label class=" control-label" for="tags">Теги</label>
-                                                <input class="form-control" id="tags" name="tags" type="text" />
+                                                <label class=" control-label" for="saveAsTags">Теги</label>
+                                                <input class="form-control" id="saveAsTags" name="saveAsTags" type="text" />
                                             </div>
                                             <div class="form-group">
-                                                <button class="btn btn-sm btn-primary col-md-offset-4" id="tbSave">Сохранить</button>
+                                                <button class="btn btn-sm btn-primary col-md-offset-4" id="tbSaveAs">Сохранить</button>
                                             </div>
                                         </div>
                                     </div>
@@ -92,12 +82,6 @@
                 </div>
             </div>
 
-
-
-
-        </div>
-    </div>
-</div>
 
 @section scripts{
     <script src="~/Scripts/l.js"></script>

@@ -1,14 +1,20 @@
 ﻿@model CellularAutomaton.Web.Models.AutomatonViewModel
 @{
     ViewBag.Title = "Клеточный автомат";
+    var tags = Model.Tags.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+    for (int i = 0; i < tags.Count(); i++)
+    {
+        tags[i] = tags[i].ToLower();
+    }  
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@Model.Name  Автор: @Model.CreatorName</h3>
 <div class="container-fluid">
-    <div class="row">
-        <div id="lifejs">
+    <div class="col-md-offset-3">
+        <div id="lifejs ">
+            <input id="hdAutomatonId" type="hidden" value="@Model.Id" />
             <div id="toolbar">
-                <span id="info"></span>
+                <span id="info"></span><br />
                 <a href="#" id="tbStep" class="btn btn-sm btn-default">Один шаг</a>
                 <a href="#" id="tbStart" class="btn btn-sm btn-default"> Запуск</a>
                 <a href="#" id="tbStop" class="btn btn-sm btn-default"> Стоп</a>
@@ -22,83 +28,105 @@
                 <div style="background-color: white; height: 500px; width: 500px">
                     <div id="frame"><canvas id="field"></canvas><div id="evcap" title="Ctrl+drag для перемещения поля"></div></div>
                 </div>
-                <div class="panel panel-primary col-md-5">
-                    <div class="panel-heading">Правила</div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label" for="birth">Рождение</label>
-                                <div class="col-md-4">
-                                    <input class="form-control" id="birth" name="birth" type="text" value="@Model.Birth"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label" for="loneliness">Одиночество</label>
-                                <div class="col-md-4">
-                                    <input class="form-control" id="loneliness" name="loneliness" type="text" value="@Model.Loneliness" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label" for="overcrowding">Переполнение</label>
-                                <div class="col-md-4">
-                                    <input class="form-control" id="overcrowding" name="overcrowding" type="text" value="@Model.Loneliness" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-4">
-                                    <a href="#" id="tbApply" class="btn btn-sm btn-default">Применить правила</a>
-                                </div>
-                            </div>
-                            @if (User.Identity.IsAuthenticated)
+                <ul class="list-group col-md-6">
+                    <li class="bg-info list-group-item">
+                        Правила
+                    </li>
+                    <li class="list-group-item">
+                        <label class="control-label" for="birth">Рождение</label>
+                        <input class="form-control" id="birth" name="birth" type="text" value="@Model.Birth" />
+                    </li>
+                    <li class="list-group-item">
+                        <label class=" control-label" for="loneliness">Одиночество</label>
+                        <input class="form-control" id="loneliness" name="loneliness" type="text" value="@Model.Loneliness" />
+                    </li>
+                    <li class="list-group-item">
+                        <label class=" control-label" for="overcrowding">Переполнение</label>
+                        <input class="form-control" id="overcrowding" name="overcrowding" type="text" value="@Model.Loneliness" />
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" id="tbApply" class="btn btn-sm btn-default">Применить правила</a>
+                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="list-group-item">
+                            <button class="btn btn-sm btn-primary " id="tbSaveModal" data-toggle="modal" data-target="#saveModal">Сохранить как</button>
+                            @if (Model.CreatorName == User.Identity.Name)
                             {
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-4">
-                                        <button class="btn btn-sm btn-primary" id="tbSaveModal" data-toggle="modal" data-target="#saveModal">Сохранить</button>
-
-                                    </div>
-                                </div>
+                                <button class="btn btn-sm btn-primary " id="tbSaveAsModal" data-toggle="modal" data-target="#resaveModal">Сохранить</button>
                             }
-                            
-                        </div>
-                        <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
-                            <div class="modal-dialog modal-sm">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                        <h4 class="modal-title" id="mySmallModalLabel">Сохранение</h4>
+                        </li>
+
+                    }
+                </ul>
+
+                <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title" id="mySmallModalLabel">Сохранение</h4>
+                            </div>
+                            <div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label class=" control-label" for="saveAsName">Название</label>
+                                        <input class="form-control" id="saveAsName" name="saveAsName" type="text" />
                                     </div>
-                                    <div>
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <label class=" control-label" for="name">Название</label>
-                                                <input class="form-control" id="name" name="name" type="text" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label" for="discription">Описание</label>
-                                                <textarea id="discription" name="discription" cols="30" rows="4"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class=" control-label" for="tags">Теги</label>
-                                                <input class="form-control" id="tags" name="tags" type="text" />
-                                            </div>
-                                            <div class="form-group">
-                                                <button class="btn btn-sm btn-primary col-md-offset-4" id="tbSave">Сохранить</button>
-                                            </div>
-                                        </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="saveAsDiscription">Описание</label>
+                                        <textarea id="saveAsDiscription" name="saveAsDiscription" cols="30" rows="4"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class=" control-label" for="saveAsTags">Теги</label>
+                                        <input class="form-control" id="saveAsTags" name="saveAsTags" type="text" />
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-sm btn-primary col-md-offset-4" id="tbSaveAs">Сохранить</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-            </div>
-            
+                <div class="modal fade" id="resaveModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title" id="mySmallModalLabel">Сохранение</h4>
+                            </div>
+                            <div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label class=" control-label" for="saveName">Название</label>
+                                        <input class="form-control" id="saveName" name="saveName" type="text" value="@Model.Name" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="saveDiscription">Описание</label>
+                                        <textarea id="saveDiscription" name="saveDiscription" cols="30" rows="4">@Model.Discription</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class=" control-label" for="saveTags">Теги</label>
+                                        <input class="form-control" id="saveTags" name="saveTags" type="text" value="@Model.Tags" />
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-sm btn-primary col-md-offset-4" id="tbSave">Сохранить</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            
+            </div>
+
+
+
 
         </div>
     </div>
+
 </div>
 
 @section scripts{

@@ -49,6 +49,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -205,6 +211,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\ChatHub.cs" />
+    <Compile Include="Lucene\Lucene.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AutomatonViewModel.cs" />
     <Compile Include="Models\ChatUser.cs" />
@@ -288,7 +295,8 @@
     <Content Include="Views\Automaton\_JustAddedPartial.cshtml" />
     <Content Include="Views\Automaton\Galery.cshtml" />
     <Content Include="Views\Automaton\UserAutomatons.cshtml" />
-    <Content Include="Views\Shared\_ShowUserAutomatonsPartial.cshtml" />
+    <Content Include="Views\Automaton\SearchByTag.cshtml" />
+    <Content Include="Views\Automaton\_ShowUserAutomatonsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

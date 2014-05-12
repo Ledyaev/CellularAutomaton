@@ -5,12 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using CellularAutomaton.Services.Interfaces;
 using CellularAutomaton.Domain;
+using CellularAutomaton.Web.Filters;
 using CellularAutomaton.Web.Models;
 using Microsoft.AspNet.Identity;
 using Ninject;
 
 namespace CellularAutomaton.Web.Controllers
 {
+    [Culture]
     public class MessageController : Controller
     {
 
@@ -71,15 +73,6 @@ namespace CellularAutomaton.Web.Controllers
             var messages = MessageService
                 .Get(m => (m.Recipient.Id == uId && m.Sender.UserName == userName) || (m.Sender.Id == uId && m.Recipient.UserName == userName), null, "").
                 OrderByDescending(a => a.CreationDate);
-            //foreach (var message in messages)
-            //{
-            //    if (message.Recipient.Id == uId && message.IsRead == false)
-            //    {
-            //        message.IsRead = true;
-            //        MessageService.Update(message);
-            //    }
-            //}
-            //MessageService.Save();
             ViewBag.UserName = userName;
             return View("ShowDialog", messages);
         }
