@@ -70,6 +70,21 @@ namespace CellularAutomaton.Web.Controllers
         }
 
         [HttpPost]
+        public ActionResult Delete(string id)
+        {
+            var automaton = AutomatonService.GetById(id);
+            var tags = automaton.Tags.ToList();
+            foreach (var tag in tags)
+            {
+                automaton.Tags.Remove(tag);
+                AutomatonService.Save();
+            }
+            AutomatonService.Delete(automaton);
+            AutomatonService.Save();
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public ActionResult Resave(string area, string rules, string discription, string name, string id)
         {
             var automaton = AutomatonService.GetById(id);

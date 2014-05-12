@@ -17,13 +17,15 @@
                         @automaton.Discription
                     </div>
                     <div class="panel-footer">
-                        @foreach (var tag in automaton.Tags)
-                        {
-                            @Html.ActionLink(tag.Name, "SearchByTag", "Automaton", new { tag = @tag.Name }, new { @class = "badge" })
-                        }
-                        @Html.ActionLink("Перейти", "ShowAutomaton", "Automaton", new { id = automaton.Id }, new { @class = "btn btn-primary btn-sm pull-right" })
+                        <div class="row">
+                            @foreach (var tag in automaton.Tags)
+                            {
+                                @Html.ActionLink(tag.Name, "SearchByTag", "Automaton", new { tag = @tag.Name }, new { @class = "badge" })
+                            }
+                            @Html.ActionLink("Перейти", "ShowAutomaton", "Automaton", new { id = automaton.Id }, new { @class = "btn btn-primary btn-sm pull-right" })
+                        </div>
+                        </div>
                     </div>
-                </div>
             </li>
         }
     }

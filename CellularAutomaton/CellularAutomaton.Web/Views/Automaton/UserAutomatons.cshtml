@@ -22,9 +22,6 @@
                     @{ Html.RenderPartial("_ShowUserAutomatonsPartial",Model.Automatons.OrderByDescending(a=>a.CreationDate)); }
                 </ul>
             </div>
-            <span id="оnlineUsers">
-                <input id="username" type="hidden" />
-            </span>
         </div>
     </div>
 }
@@ -33,5 +30,30 @@ else
     <div class="alert alert-warning"> Пользователь был удален.</div>
 }
 
+@if (ViewBag.IsOwnPage)
+{
+    @section scripts{
+        <script type="text/javascript">
+            $('#delete').click(function () {
+                var id = $("#automatonId").val();
+                var b=confirm("Вы действительно хотите удалить конфигурацию?");
+                if (b == true) {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("Delete", "Automaton")",
+                        data: "id=" + id,
+                        success: function (data) {
+                            if (data == true) {
+                                alert("Конфигурация была удалена");
+                                location.reload();
+                            }
+                            
+                        }
+                });
+                }
+            });
+        </script>
+    }
+}
 
 

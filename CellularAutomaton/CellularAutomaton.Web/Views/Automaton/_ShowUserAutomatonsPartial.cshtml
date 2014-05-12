@@ -3,7 +3,6 @@
 <ul class="list-group">
     @foreach (var automaton in Model)
     {
-
         <li class="list-group-item">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -14,11 +13,19 @@
                     @automaton.Discription
                 </div>
                 <div class="panel-footer">
-                    @foreach (var tag in automaton.Tags)
-                    {
-                        @Html.ActionLink(tag.Name, "SearchByTag", "Automaton",new{tag=@tag.Name} ,new { @class = "badge" })
-                    }
-                    @Html.ActionLink("Перейти", "ShowAutomaton", "Automaton", new { id = automaton.Id }, new { @class = "btn btn-primary btn-sm pull-right" })
+                    <div class="row">
+                        
+                        @foreach (var tag in automaton.Tags)
+                        {
+                            @Html.ActionLink(tag.Name, "SearchByTag", "Automaton", new { tag = @tag.Name }, new { @class = "badge" })
+                        }
+                        @Html.ActionLink("Перейти", "ShowAutomaton", "Automaton", new { id = automaton.Id }, new { @class = "btn btn-primary btn-sm pull-right" })
+                        @if (automaton.Creator.UserName == User.Identity.Name)
+                        {
+                            <input id="automatonId" type="hidden" value="@automaton.Id"/>
+                            <a id="delete" class="btn btn-primary btn-sm pull-right">Удалить</a>
+                        }
+                    </div>
                 </div>
             </div>
         </li>
