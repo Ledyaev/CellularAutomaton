@@ -293,7 +293,7 @@ var LifeGame = {
           else {
               $('#saveModal').modal('hide');
               $("#saveAsDiscription").val("");
-              $("#name").val("");
+              $("#saveAsName").val("");
               $("#saveAsTags").val("");
               alert("Конфигурация была успешно сохранена.");
               window.location = "/Automaton/ShowAutomaton/"+data;
@@ -305,16 +305,14 @@ var LifeGame = {
   resave: function () {
       var area = JSON.stringify(this.curGen);
       var rules = this.birth + " " + this.overcrowding + " " + this.loneliness;
-      var discription = $("#saveAsDiscription").val();
-      var tags = $("#saveAsTags").val();
-      var name = $("#saveAsName").val();
+      var discription = $("#saveDiscription").val();
+      var name = $("#saveName").val();
       var id = $("#hdAutomatonId").val();
       $.ajax({
           type: "POST",
           url: "/Automaton/Resave",
-          data: "area=" + area + "&rules=" + rules + "&discription=" + discription + "&tags=" + tags + "&name=" + name+"&id="+id,
+          data: "area=" + area + "&rules=" + rules + "&discription=" + discription + "&name=" + name+"&id="+id,
           success: function (data) {
-            //  $("#dialogs ul").empty();
               if (data == true) {
                   $('#saveModal').modal('hide');
                   $("#saveAsDiscription").val("");

@@ -70,7 +70,7 @@ namespace CellularAutomaton.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Resave(string area, string rules, string discription, string tags, string name, string id)
+        public ActionResult Resave(string area, string rules, string discription, string name, string id)
         {
             var automaton = AutomatonService.GetById(id);
             System.IO.File.Create(Server.MapPath(automaton.Area)).Close();
@@ -78,36 +78,11 @@ namespace CellularAutomaton.Web.Controllers
             automaton.Name = name;
             automaton.Discription = discription;
             automaton.CreationDate = DateTime.Now;
-            automaton.Id = Guid.NewGuid().ToString();
             automaton.Rules = rules;
-            AutomatonService.Delete(automaton);
-            AutomatonService.Save();
-            var tagsList = ParseTags(tags);
-            foreach (var tag in tagsList)
-            {
-                var foundTag = SearchTag(tag);
-                foundTag.Automatons.Add(automaton);
-                if (foundTag.Id == null)
-                {
-                    foundTag.Id = Guid.NewGuid().ToString();
-                    TagService.Insert(tag);
-                }
-                else
-                {
-                    TagService.Update(foundTag);
-                }
-            }
-            TagService.Save();
+            AutomatonService.Update(automaton);
             AutomatonService.Save();
             return Json(true, JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult Delete(string id)
-        {
-            var automaton = AutomatonService.GetById(id);
-            AutomatonService.Delete();
-        }
-
 
         public ActionResult ShowAutomaton(string id)
         {

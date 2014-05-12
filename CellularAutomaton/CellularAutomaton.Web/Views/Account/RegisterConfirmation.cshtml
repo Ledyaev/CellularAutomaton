@@ -5,11 +5,19 @@
 
 @if (ViewBag.IsConfirmed == true)
 {
-    <span>@Resources.Resource.RegistrationSuccess</span>
+    <div class="container body-content" style="">
+        <div class="alert alert-dismissable alert-success">
+            <span>@Resources.Resource.RegistrationSuccess</span>
+        </div>
+    </div>
 }
 else
 {
-    <span>@Resources.Resource.RegistrationSuccess</span>
+    <div class="container body-content" style="">
+        <div class="alert alert-dismissable alert-success">
+            <span>@Resources.Resource.RegistrationFailure</span>
+        </div>
+    </div>
 }
 
 
